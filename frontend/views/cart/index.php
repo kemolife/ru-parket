@@ -106,7 +106,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="cart-buttons row align-items-lg-center">
                     <div class="col-md-4 col-lg-3 order-md-2">
-                        <button class="btn btn-info btn-icon" data-toggle="modal" data-target="#callbackModal">
+                        <button class="btn btn-info btn-icon" data-toggle="modal" data-target="#buyNowModal">
                             <span>Купить в 1 клик</span>
                             <i class="material-icons">arrow_forward</i>
                         </button>

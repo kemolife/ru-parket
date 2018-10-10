@@ -26,7 +26,7 @@ use common\models\Banner;
 
     <?= $form->field($model, 'image')->fileInput() ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'description_big')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'description_small')->textarea(['rows' => 6]) ?>
 

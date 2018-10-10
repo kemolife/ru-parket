@@ -66,11 +66,8 @@ class CategoryController extends \frontend\components\Controller
         }
     }
 
-    public function actionCatalog($id)
+    public function actionCatalog($id = 1)
     {
-        if ($id <= 0)
-            $this->goHome();
-
         $setting = Settings::find()->one();
 
         $allCategory = Category::find()->asArray()->all();

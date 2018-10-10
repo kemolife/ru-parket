@@ -17,6 +17,8 @@ use yii\web\UploadedFile;
  */
 class BlogCatalogController extends Controller
 {
+    public $enableCsrfValidation = false;
+
     public function behaviors()
     {
         return [

@@ -173,7 +173,19 @@ $menuItemsMain = [
     ],
     [
         'label' => '<i class="fa fa-cog"></i> ' . Yii::t('app', 'Settings'),
-        'url' => ['/settings']
+        'url' => ['#'],
+        'active' => false,
+        //'visible' => Yii::$app->user->can('haha'),
+        'items' => [
+            [
+                'label' => '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Settings'),
+                'url' => ['/settings']
+            ],
+            [
+                'label' => '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Message client'),
+                'url' => ['/message-client']
+            ]
+        ]
     ]
 ];
 echo Nav::widget([
