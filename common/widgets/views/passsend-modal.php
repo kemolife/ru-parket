@@ -1,3 +1,4 @@
+<?php use yii\bootstrap\ActiveForm; ?>
 <div class="modal fade" id="passSendModal" tabindex="-1" role="dialog" aria-labelledby="passSendModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -7,13 +8,17 @@
                     <i class="material-icons" aria-hidden="true">close</i>
                 </button>
             </div>
+            <?php
+            $form = ActiveForm::begin(
+                [
+                    'action' => Yii::$app->urlManager->createUrl(['site/request-password-reset']),
+                    'id' => 'send-pass',
+                    'options' => ['class' => 'form'],
+                    'method' => 'POST'
+                ]
+            ); ?>
             <div class="modal-body">
-                <form action="" class="form">
-                    <div class="form-group">
-                        <label for="passsend-email" class="col-form-label">Электронный адрес:</label>
-                        <input type="email" class="form-control" id="passsend-email" required>
-                    </div>
-                </form>
+                <?php echo $form->field($model, 'email')->textInput(['class' => 'form-control']) ?>
             </div>
             <div class="modal-footer d-flex flex-column align-items-md-end">
                 <button class="btn btn-info btn-icon" type="submit">
@@ -21,6 +26,7 @@
                     <i class="material-icons">arrow_forward</i>
                 </button>
             </div>
+            <?php ActiveForm::end(); ?>
         </div>
     </div>
 </div><!-- #passSendModal -->

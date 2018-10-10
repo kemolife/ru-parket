@@ -46,6 +46,7 @@ use common\models\Settings;
     <?= $form->field($model, 'seo_categories_description')->textarea(['rows' => 6]) ?>
     <?= $form->field($model, 'contact_info')->textarea(['rows' => 6]) ?>
     <?= $form->field($model, 'lat_log')->fileInput() ?>
+    <?= $form->field($model, 'cost_departure')->fileInput() ?>
 
     <?= $form->field($model, 'status')->dropDownList(\common\models\Status::labels()) ?>
 

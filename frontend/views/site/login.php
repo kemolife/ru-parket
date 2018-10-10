@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
                             <?= Html::error($modelLogin, 'email'); ?><?= Html::error($modelLogin, 'password'); ?>
                             <div class="d-block">
-                                <button class="btn btn btn-link" data-toggle="modal" data-target="#testModal">
+                                <button type="button" class="btn btn btn-link" data-toggle="modal" data-target="#passRemindModal">
                                     <span>Забыли пароль?</span>
                                     <i class="material-icons">navigate_next</i>
                                 </button>

@@ -71,7 +71,7 @@ $urlConsultation = Yii::$app->urlManager->createUrl(['product/consultation']);
                                     <div class="product__details--secondary hidden__down--sm">
                                         <div class="support-order">
                                             <button class="btn btn-primary btn-support" data-toggle="modal"
-                                                    data-target="#testModal">
+                                                    data-target="#consultantModal">
                                                 <img src="/img/svg/builder1.svg" alt="">
                                                 <span>Консультация технолога</span>
                                             </button>
@@ -142,7 +142,7 @@ $urlConsultation = Yii::$app->urlManager->createUrl(['product/consultation']);
                                     </div>
                                     <div class="product__buyprocess">
                                         <button class="btn btn-info btn-icon" data-toggle="modal"
-                                                data-target="#callbackModal">
+                                                data-target="#buyNowModal">
                                             <span>Купить в 1 клик</span>
                                             <i class="material-icons">arrow_forward</i>
                                         </button>
@@ -203,7 +203,7 @@ $urlConsultation = Yii::$app->urlManager->createUrl(['product/consultation']);
                                     <div class="product__details--secondary hidden__up--md">
                                         <div class="support-order">
                                             <button class="btn btn-primary btn-support" data-toggle="modal"
-                                                    data-target="#testModal">
+                                                    data-target="#consultantModal">
                                                 <img src="/img/svg/builder1.svg" alt="">
                                                 <span>Консультация технолога</span>
                                             </button>
@@ -409,14 +409,14 @@ thumb.find('li').mouseenter(function(){
 });
 
 if (product.stock > 0) {
-    $("li.add_cart_li").html('<a href="javascript:;" class="btn" id="buy_btn"><i class="glyphicon glyphicon-shopping-cart"></i> 加入购物车</a>')
+    $("li.add_cart_li").html('<a href="javascript:;" class="btn" id="buy_btn"><i class="glyphicon glyphicon-shopping-cart"></i></a>')
 } else {
-    $("li.add_cart_li").html('<span>暂时无货</span>')
+    $("li.add_cart_li").html('<span></span>')
 }
 if (user.favorite > 0) {
-    $("li.add_cart_li").append('<a href="javascript:;" class="graybtn" id="has_fav_btn"><i class="glyphicon glyphicon-heart"></i> 已收藏</a>');
+    $("li.add_cart_li").append('<a href="javascript:;" class="graybtn" id="has_fav_btn"><i class="glyphicon glyphicon-heart"></i></a>');
 } else {
-    $("li.add_cart_li").append('<a href="javascript:;" class="graybtn" id="fav_btn"><i class="glyphicon glyphicon-heart-empty"></i> 收藏</a>');
+    $("li.add_cart_li").append('<a href="javascript:;" class="graybtn" id="fav_btn"><i class="glyphicon glyphicon-heart-empty"></i></a>');
 }
 
 $("#pjxqitem").hide();
@@ -450,7 +450,7 @@ $("#btnPlus").click(function(e){
       e.preventDefault();
     var number = $("#input-buy-number").val();
     var productId = $(this).data('product');
-        $(this).html('<img src="/images/loading.gif" /> 加入购物车');
+        $(this).html('<img src="/images/loading.gif" />');
         param = {
             productId : productId,
             number : $("#input-buy-number").val(),
@@ -468,7 +468,7 @@ $("#fav_btn").click(function(){
         $.get("{$urlFavorite}?id=" + product.productId, function(data, status) {
             if (status == "success") {
                 if (data.status) {
-                    $("#fav_btn").html('<i class="glyphicon glyphicon-heart"></i>已收藏</a>');
+                    $("#fav_btn").html('<i class="glyphicon glyphicon-heart"></i></a>');
                 }
             }
         }, "json");
@@ -533,7 +533,7 @@ $('.z-com-list').on('click', 'a.up', function(e){
     $.get(link, function(data, status) {
         if (status == "success") {
             //alert(data.up);
-            up.html("赞 ( <i>" + data.up + "</i> )");
+            up.html("( <i>" + data.up + "</i> )");
         }
     }, 'json');
 });
@@ -547,7 +547,7 @@ $("#consultation-btn").click(function(){
         };
         $.post("{$urlConsultationAdd}", param, function(data) {
             if (data.status > 0) {
-                alert("你的咨询已提交成功，我们会尽快回复你的哦。");
+                alert("");
                 $("#consultation-question").val('');
             }
         }, "json");

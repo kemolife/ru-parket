@@ -8,9 +8,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="form-inline border header__search">
+                <form action="<?= Yii::$app->urlManager->createUrl(['product/search']) ?>" class="form-inline border header__search">
                     <label class="sr-only" for="headerSearch1">Поиск</label>
-                    <input type="text" class="form-control" id="headerSearch1" placeholder="Что вы хотите купить?">
+                    <input type="text" class="form-control" id="headerSearch1" value="<?= Yii::$app->request->get('keyword', '') ?>" placeholder="Что вы хотите купить?">
                     <button type="submit" class="btn btn-search">
                         <i class="material-icons">search</i>
                         <span class="sr-only">Поиск</span>

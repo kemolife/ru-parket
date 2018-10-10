@@ -8,6 +8,7 @@ use common\models\Product;
 use common\models\Profile;
 use common\models\Settings;
 use common\models\StaticPages;
+use common\models\User;
 use common\services\ProductsService;
 use frontend\models\ChangePasswordForm;
 use Yii;

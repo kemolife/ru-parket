@@ -6,44 +6,47 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \frontend\models\ResetPasswordForm */
 
-$this->registerCssFile('@web/css/login.css', ['depends' => \frontend\assets\AppAsset::className()]);
-
 $this->title = Yii::t('app', 'Reset password');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div id="main" class="cle">
-    <div class="box-pic" id="login-pic">
-        <div class="img">
-            <!-- cms: loginpage_pic -->
-            <img src="/images/login-box-bg.jpg" width="500" height="450" /> </div>
-    </div>
-    <div class="g_box">
-        <div id="login-box">
-            <h2>
-                <div class="trig"><a href="<?= Yii::$app->urlManager->createUrl(['site/login']) ?>" class="trigger-box">点击登录</a></div>
-                <?= Html::encode($this->title) ?>
-            </h2>
-            <div class="form-bd-signup">
-                <div class="form_box cle"  id="login-nala">
-                    <div class="login_box">
-                        <?php $form = ActiveForm::begin(['id' => 'login-nala-form']); ?>
-                        <ul class="form">
-                            <li>
-                                <?= Yii::t('app', 'Please choose your new password:') ?>
-                            </li>
-                            <li class="text_input"><span class="error_icon"></span><span class="iconfont glyphicon glyphicon-lock"></span>
-                                <?= Html::activePasswordInput($model, 'password', ['class' => 'text', 'placeholder' => "密码"]) ?>
-                            </li>
-                            <div class="error_box" style="color:#F00"><?= Html::error($model, 'email'); ?><?= Yii::$app->session->getFlash('success') ?></em></div>
-                            <li class="last">
-                                <?= Html::submitButton( Yii::t('app', 'Save'), ['class' => 'btn', 'name' => 'login-button']) ?>
-                            </li>
-                        </ul>
-                        <?php ActiveForm::end(); ?>
-                    </div>
-                </div>
-            </div>
+<!-- main -->
+<main class="main" role="main">
+
+    <section class="reset-password">
+        <div class="container">
+            <nav aria-label="hidden__down--md breadcrumb">
+                <?= \yii\widgets\Breadcrumbs::widget([
+                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                    'options' => ['class' => 'breadcrumb'],
+                    'tag' => 'div',
+                    'itemTemplate' => '<li class="breadcrumb-item">{link}</li>',
+                    'activeItemTemplate' => '<li class="breadcrumb-item active" aria-current="page">{link}</li>',
+                ]) ?>
+            </nav>
+            <header class="page-title text-center">
+                <div class="h1 border-bottom"></div>
+            </header>
+            <div class="row login__forms">
+                <div class="col-md-12 pr-xl-12">
+                    <?php $form = ActiveForm::begin(['id' => 'login-nala-form']); ?>
+                        <div class="form-checkbox" data-login="form">
+                            <span class="d-inline-block checkbox checked"></span>
+                            <div class="d-inline-block h2">Смена пароля</div>
+                        </div>
+                        <?= Html::activePasswordInput($model, 'password', ['class' => 'form-control']) ?>
+                        <button class="btn btn-info btn-icon" type="submit">
+                            <span>Сохранить</span>
+                            <i class="material-icons">arrow_forward</i>
+                        </button>
+                    <?php ActiveForm::end(); ?>
+                </div><!-- .col -->
+            </div><!-- .row -->
         </div>
-    </div>
-</div>
+    </section>
+
+</main>
+<!-- Backend - this will replaced with backend function to add class -->
+<script>
+    document.querySelector('.page').classList.add('reset-password');
+</script>

@@ -131,6 +131,8 @@ AppAsset::register($this);
 
     <?= \common\widgets\CallbackModal::widget() ?>
 
+    <?= \common\widgets\ConsultantModal::widget() ?>
+
 
     <?php $this->endBody() ?>
     <script>
