@@ -7,17 +7,12 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\MessageClientSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Massage Clients';
+$this->title = 'Клиенсткие сообщения';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="massage-client-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('Create Massage Client', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -34,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'status',
             //'create_date',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'],
         ],
     ]); ?>
 </div>

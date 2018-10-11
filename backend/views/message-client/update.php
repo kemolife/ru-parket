@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\MessageClient */
 
-$this->title = 'Update Massage Client: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Massage Clients', 'url' => ['index']];
+$this->title = 'Редактировать Клиенсткие сообщения: ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Клиенсткие сообщения', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Редактировать';
 ?>
 <div class="massage-client-update">
 

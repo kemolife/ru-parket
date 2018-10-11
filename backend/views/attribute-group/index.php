@@ -7,16 +7,14 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\AttributeGroupSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Attribute Groups';
+$this->title = 'Групы Аттрибутов';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="attribute-group-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <p>
-        <?= Html::a('Create Attribute Group', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать ' . 'Групы Аттрибутов', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -29,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'sort_order',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'],
         ],
     ]); ?>
 </div>

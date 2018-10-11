@@ -1,6 +1,7 @@
 <?php
 
 use common\models\BlogComment;
+use common\models\Status;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use funson86\blog\models\BlogPost;
@@ -25,11 +26,10 @@ use \yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'url')->textInput(['maxlength' => 128]) ?>
 
-    <?= $form->field($model, 'status')->dropDownList(\common\models\StatusBlog::labels()) ?>
+    <?= $form->field($model, 'status')->dropDownList(Status::labels()) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('blog', 'Create') : Yii::t('blog', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-    </div>
+        <?= Html::submitButton($model->isNewRecord ?  'Создать' :  'Изменить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?> </div>
 
     <?php ActiveForm::end(); ?>
 

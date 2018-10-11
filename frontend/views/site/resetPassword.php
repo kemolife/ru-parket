@@ -30,10 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="row login__forms">
                 <div class="col-md-12 pr-xl-12">
                     <?php $form = ActiveForm::begin(['id' => 'login-nala-form']); ?>
-                        <div class="form-checkbox" data-login="form">
-                            <span class="d-inline-block checkbox checked"></span>
-                            <div class="d-inline-block h2">Смена пароля</div>
-                        </div>
+                        <div class="d-inline-block h2">Смена пароля</div>
                         <?= Html::activePasswordInput($model, 'password', ['class' => 'form-control']) ?>
                         <button class="btn btn-info btn-icon" type="submit">
                             <span>Сохранить</span>

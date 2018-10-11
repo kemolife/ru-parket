@@ -9,16 +9,12 @@ use common\models\Order;
 /* @var $searchModel common\models\OrderSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Orders');
+$this->title = 'Заказы';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="order-index">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <!--p>
-        <?= Html::a(Yii::t('app', 'Create ') . Yii::t('app', 'Order'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p-->
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -32,20 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'=>function ($model) {
                     return $model->user ? $model->user->username : '-';
                 },
-            ],
-            'sn',
-            'consignee',
-            [
-                'attribute' => 'address',
-                'value' => function ($model) {
-                    return (isset($model->country0) ? $model->country0->name : '-') . (isset($model->province0) ? $model->province0->name : '-') . (isset($model->city0) ? $model->city0->name : '-') . (isset($model->district0) ? $model->district0->name : '-');
-                },
-                /*'filter' => Html::activeDropDownList(
-                    $searchModel,
-                    'province',
-                    ArrayHelper::map(\common\models\Region::find()->all(), 'id', 'name'),
-                    ['class' => 'form-control', 'prompt' => Yii::t('app', 'Please Filter')]
-                )*/
             ],
             // 'province',
             // 'city',
@@ -77,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     $searchModel,
                     'payment_status',
                     Order::getPaymentStatusLabels(),
-                    ['class' => 'form-control', 'prompt' => Yii::t('app', 'PROMPT_STATUS')]
+                    ['class' => 'form-control']
                 )
             ],
             // 'payment_id',
@@ -103,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     $searchModel,
                     'shipment_status',
                     Order::getShipmentStatusLabels(),
-                    ['class' => 'form-control', 'prompt' => Yii::t('app', 'PROMPT_STATUS')]
+                    ['class' => 'form-control']
                 )
             ],
             // 'shipment_id',
@@ -132,7 +114,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     $searchModel,
                     'status',
                     Order::getStatusLabels(),
-                    ['class' => 'form-control', 'prompt' => Yii::t('app', 'PROMPT_STATUS')]
+                    ['class' => 'form-control']
                 )
             ],
             // 'paid_at',
@@ -142,7 +124,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'created_by',
             // 'updated_by',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'],
         ],
     ]); ?>
 

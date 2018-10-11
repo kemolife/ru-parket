@@ -147,3 +147,6 @@ $settings = \common\models\Settings::find()->one();
         </div>
     </div>
 </footer>
+
+<button id="pageGoUp" class="page-go-up btn rounded-circle position-fixed" aria-hidden="true"><i class="material-icons">keyboard_arrow_up</i></button>
+

@@ -12,179 +12,167 @@ NavBar::begin([
 ]);
 $menuItemsMain = [
     [
-        'label' => Yii::t('app', 'Order'),
+        'label' => 'Заказы',
         'url' => ['#'],
         'active' => false,
         'items' => [
             [
-                'label' => Yii::t('app', 'Order'),
+                'label' => 'Заказы',
                 'url' => ['/order'],
             ],
             [
-                'label' => Yii::t('app', 'Order Log'),
-                'url' => ['/order-log'],
-            ],
-            [
-                'label' => Yii::t('app', 'Cart'),
+                'label' => 'Корзина',
                 'url' => ['/cart'],
             ],
         ],
         //'visible' => Yii::$app->user->can('readPost'),
     ],
     [
-        'label' => Yii::t('app', 'Product'),
+        'label' => 'Продукты',
         'url' => ['#'],
         'active' => false,
         'items' => [
             [
-                'label' => Yii::t('app', 'Category'),
+                'label' => 'Категории',
                 'url' => ['/category'],
             ],
             [
-                'label' => Yii::t('app', 'Product'),
+                'label' => 'Продукты',
                 'url' => ['/product'],
             ],
             [
-                'label' => Yii::t('app', 'Attribute'),
+                'label' => 'Аттрибуты',
                 'url' => ['/attribute'],
             ],
             [
-                'label' => Yii::t('app', 'Attribute-Group'),
+                'label' => 'Групы Аттрибутов',
                 'url' => ['/attribute-group'],
             ],
             [
-                'label' => Yii::t('app', 'Options'),
+                'label' => 'Опции',
                 'url' => ['/options'],
             ],
             [
-                'label' => Yii::t('app', 'Comment'),
+                'label' => 'Комментарии',
                 'url' => ['/comment'],
             ],
             [
-                'label' => Yii::t('app', 'Consultation'),
-                'url' => ['/consultation'],
-            ],
-            [
-                'label' => Yii::t('app', 'Brand'),
+                'label' => 'Бренды',
                 'url' => ['/brand'],
             ],
             [
-                'label' => Yii::t('app', 'Search Log'),
-                'url' => ['/search-log'],
-            ],
-            [
-                'label' => Yii::t('app', 'Import'),
+                'label' => 'Импорт продуктив',
                 'url' => ['/product/import'],
             ],
             [
-                'label' => Yii::t('app', 'Export'),
+                'label' => 'Экспорт продуктив',
                 'url' => ['/product/export'],
             ],
         ],
         //'visible' => Yii::$app->user->can('readPost'),
     ],
     [
-        'label' => '<i class="fa fa-cog"></i> Blog ',
+        'label' => 'Блог',
         'url' => ['#'],
         'active' => false,
         //'visible' => Yii::$app->user->can('haha'),
         'items' => [
             [
-                'label' => '<i class="fa fa-user"></i> ' . Yii::t('app', 'Posts'),
+                'label' => 'Блог посты',
                 'url' => ['/blog-post'],
             ],
             [
-                'label' => '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Comments'),
+                'label' => 'Блог комментарии',
                 'url' => ['/blog-comment'],
             ],
             [
-                'label' => '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Catalog'),
+                'label' => 'Блог категории',
                 'url' => ['/blog-catalog'],
             ],
             [
-                'label' => '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Tags'),
+                'label' => 'Блог теги',
                 'url' => ['/blog-tag'],
             ],
         ],
     ],
     [
-        'label' => '<i class="fa fa-cog"></i> ' . Yii::t('app', 'User'),
+        'label' => 'Пользователи',
         'url' => ['#'],
         'active' => false,
         //'visible' => Yii::$app->user->can('haha'),
         'items' => [
             [
-                'label' => '<i class="fa fa-user"></i> ' . Yii::t('app', 'User'),
+                'label' => 'Пользователи',
                 'url' => ['/user'],
             ],
             [
-                'label' => '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Address'),
+                'label' => 'Адреса',
                 'url' => ['/address'],
             ],
-            [
-                'label' => '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Favorite'),
-                'url' => ['/favorite'],
-            ],
-            [
-                'label' => '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Point Log'),
-                'url' => ['/point-log'],
-            ],
-            [
-                'label' => '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Coupon Type'),
-                'url' => ['/coupon-type'],
-            ],
-            [
-                'label' => '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Coupon'),
-                'url' => ['/coupon'],
-            ],
+//            [
+//                'label' => '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Favorite'),
+//                'url' => ['/favorite'],
+//            ],
+//            [
+//                'label' => '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Point Log'),
+//                'url' => ['/point-log'],
+//            ],
+//            [
+//                'label' => '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Coupon Type'),
+//                'url' => ['/coupon-type'],
+//            ],
+//            [
+//                'label' => '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Coupon'),
+//                'url' => ['/coupon'],
+//            ],
         ],
     ],
+//    [
+//        'label' => '<i class="fa fa-cog"></i> ' . Yii::t('app', 'System'),
+//        'url' => ['#'],
+//        'active' => false,
+//        //'visible' => Yii::$app->user->can('haha'),
+//        'items' => [
+//            [
+//                'label' => '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Payment'),
+//                'url' => ['/payment'],
+//            ],
+//            [
+//                'label' => '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Shipment'),
+//                'url' => ['/shipment'],
+//            ],
+//            [
+//                'label' => '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Auth Role'),
+//                'url' => ['/auth'],
+//            ],
+//            [
+//                'label' => '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Setting'),
+//                'url' => ['/setting'],
+//            ],
+//            [
+//                'label' => '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Region'),
+//                'url' => ['/region'],
+//            ],
+//        ],
+//    ],
     [
-        'label' => '<i class="fa fa-cog"></i> ' . Yii::t('app', 'System'),
+        'label' => 'Настройки',
         'url' => ['#'],
         'active' => false,
         //'visible' => Yii::$app->user->can('haha'),
         'items' => [
             [
-                'label' => '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Payment'),
-                'url' => ['/payment'],
-            ],
-            [
-                'label' => '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Shipment'),
-                'url' => ['/shipment'],
-            ],
-            [
-                'label' => '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Auth Role'),
-                'url' => ['/auth'],
-            ],
-            [
-                'label' => '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Setting'),
-                'url' => ['/setting'],
-            ],
-            [
-                'label' => '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Region'),
-                'url' => ['/region'],
-            ],
-        ],
-    ],
-    [
-        'label' => '<i class="fa fa-cog"></i> ' . Yii::t('app', 'Banner'),
-        'url' => ['/banner']
-    ],
-    [
-        'label' => '<i class="fa fa-cog"></i> ' . Yii::t('app', 'Settings'),
-        'url' => ['#'],
-        'active' => false,
-        //'visible' => Yii::$app->user->can('haha'),
-        'items' => [
-            [
-                'label' => '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Settings'),
+                'label' => 'Настройки',
                 'url' => ['/settings']
             ],
             [
-                'label' => '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Message client'),
+                'label' => 'Клиенсткие сообщения',
                 'url' => ['/message-client']
-            ]
+            ],
+            [
+                'label' => 'Баннер',
+                'url' => ['/banner']
+            ],
         ]
     ]
 ];
@@ -193,18 +181,11 @@ echo Nav::widget([
     'items' => $menuItemsMain,
     'encodeLabels' => false,
 ]);
-$menuItems = [
-    [
-        'label' => Yii::t('app', 'Modify Password'),
-        'url' => ['site/change-password'],
-    ],
-    ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
-];
 if (Yii::$app->user->isGuest) {
-    $menuItems[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']];
+    $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
 } else {
     $menuItems[] = [
-        'label' => Yii::t('app', 'Logout') . '(' . Yii::$app->user->identity->username . ')',
+        'label' => 'Выйти' . '(' . Yii::$app->user->identity->username . ')',
         'url' => ['/site/logout'],
         'linkOptions' => ['data-method' => 'post']
     ];

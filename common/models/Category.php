@@ -57,7 +57,7 @@ class Category extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['parent_id', 'is_nav', 'sort_order', 'status', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['parent_id', 'is_nav', 'sort_order', 'status', 'created_at', 'updated_at', 'created_by', 'updated_by', 'is_same'], 'integer'],
             [['name'], 'required'],
             [['description'], 'string'],
             [['banner'], 'file', 'extensions' => 'jpg, png', 'mimeTypes' => 'image/jpeg, image/png',],
@@ -87,6 +87,7 @@ class Category extends \yii\db\ActiveRecord
             'updated_at' => Yii::t('app', 'Updated At'),
             'created_by' => Yii::t('app', 'Created By'),
             'updated_by' => Yii::t('app', 'Updated By'),
+            'is_same' => 'Сопутствующие Категории'
         ];
     }
 
@@ -303,6 +304,32 @@ class Category extends \yii\db\ActiveRecord
     static public function getRootCategories()
     {
         return self::find()->where(['parent_id' => 0])->all();
+    }
+
+    public static function getSameCategories($id)
+    {
+        return self::find()
+            ->select(['sub_cat_id'])
+            ->join('LEFT JOIN', 'same_category', 'same_category.cat_id = category.id')
+            ->where(['category.id' => $id])
+            ->asArray()
+            ->all();
+    }
+
+    public static function getSameCatForProducts($products)
+    {
+        $result = [];
+        foreach ($products as $product){
+            $catId = $product->product->category->id;
+            $sameCats = self::getSameCategories($catId);
+            foreach ($sameCats as $sameCat){
+                if(false === in_array($sameCat, $result)){
+                    array_push($result, Category::findOne($sameCat['sub_cat_id']));
+                }
+            }
+        }
+
+        return $result;
     }
 
 }

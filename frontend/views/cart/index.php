@@ -68,7 +68,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                       class="minus">minus</span>
                                                 <i class="material-icons">remove</i>
                                             </button>
-                                            <input type="number" class="calculator-value" data-limit="99"  data-link="<?= Yii::$app->urlManager->createUrl(['cart/index', 'type' => 'change', 'product_id' => $product->product_id]) ?>" value="<?= $product->number ?>">
+                                            <input type="number" class="calculator-value" data-limit="99"
+                                                   data-link="<?= Yii::$app->urlManager->createUrl(['cart/index', 'type' => 'change', 'product_id' => $product->product_id]) ?>"
+                                                   value="<?= $product->number ?>">
                                             <button class="calculator-plus" data-calc="plus">
                                                 <span data-link="<?= Yii::$app->urlManager->createUrl(['cart/index', 'type' => 'add', 'product_id' => $product->product_id]) ?>"
                                                       class="add">plus</span>
@@ -82,7 +84,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <!-- .product__calc -->
                                 </div>
                                 <div class="cart-item-summary col-4 col-sm-3 col-md-2 order-6">
-                                    <span class="calculator-result"><strong id="resultPrice1"><?= $product->number * $product->price ?></strong> ₽</span>
+                                    <span class="calculator-result"><strong
+                                                id="resultPrice1"><?= $product->number * $product->price ?></strong> ₽</span>
                                 </div>
                             </div>
                             <a href="<?= Yii::$app->urlManager->createUrl(['cart/delete', 'id' => $product->product_id]) ?>"
@@ -134,116 +137,33 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="d-block">
                         <div class="h1 d-inline-block">С этим товаром покупают:</div>
                         <ul class="d-inline-flex nav nav-tabs" id="recommendTabs" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="tabRecommend1" data-toggle="tab" href="#recommendProds1"
-                                   role="tab" aria-controls="recommendProds1" aria-selected="true">Плинтусы</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="tabRecommend2" data-toggle="tab" href="#recommendProds2"
-                                   role="tab" aria-controls="recommendProds2" aria-selected="false">Подложки</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="tabRecommend3" data-toggle="tab" href="#recommendProds3"
-                                   role="tab" aria-controls="recommendProds3" aria-selected="false">Торцевые
-                                    заглушки</a>
-                            </li>
+                            <?php foreach ($sameCategories as $key => $category) { ?>
+                                <li class="nav-item">
+                                    <a class="nav-link <?= $key === 0?'active':'' ?>" id="tabRecommendProds<?= $category->id ?>"
+                                       data-toggle="tab"
+                                       href="#recommendProds<?= $category->id ?>"
+                                       role="tab" aria-controls="recommendProds<?= $category->id ?>"
+                                       aria-selected="true"><?= $category->name ?></a>
+                                </li>
+                            <?php }
+                            unset($category);
+                            unset($key);
+                            ?>
                         </ul>
                     </div>
                     <div class="tab-content" id="recommendProdsList">
-                        <div class="tab-pane fade show active" id="recommendProds1" role="tabpanel"
-                             aria-labelledby="tabRecommend1">
-                            <div class="products__recommend--slider">
-                                <div class="card card-product">
-                                    <a href="single-product.html" class="card-img-top"
-                                       title="Береза желтая картри лак береза желтая">
-                                        <img class="card-img-main" src="assets/img/product-1.jpg"
-                                             alt="Береза желтая картри лак береза желтая">
-                                        <img class="card-img-firm" src="assets/img/slider1/slide1.jpg" alt="firm img">
-                                        <div class="card-badge">
-                                            <span class="badge badge-danger">-30%</span>
-                                        </div>
-                                    </a>
-                                    <div class="card-body">
-                                        <div class="h2 card-title"><a href="single-product.html"
-                                                                      title="Береза желтая картри лак береза желтая">Береза
-                                                желтая картри лак береза желтая</a></div>
-                                        <div class="d-flex card-price">
-                                            <div class="card-price-old">2100 <span
-                                                        class="currency">&#8381;/м <sup>2</sup></span></div>
-                                            <div class="card-price-new">1930 <span
-                                                        class="currency">&#8381;/м <sup>2</sup></span></div>
-                                        </div>
-                                        <a href="#" class="btn btn-buy btn-primary" role="button" title="Купить">
-                                            <i class="material-icons">shopping_cart</i>
-                                            <span>Купить</span>
-                                        </a>
-                                    </div>
+                        <?php foreach ($sameCategories as $key => $category) { ?>
+                            <div class="tab-pane fade show <?= $key === 0?'active':'' ?>" id="recommendProds<?= $category->id ?>" role="tabpanel"
+                                 aria-labelledby="tabRecommend<?= $category->id ?>">
+                                <div class="products__recommend--slider">
+                                    <?php foreach ($category->products as $product) {
+                                        echo $this->render('../site/block/main_products_part', ['type' => 'promote', 'item' => $product]);
+                                    } ?>
                                 </div>
                             </div>
-                        </div>
+                        <?php } ?>
                     </div>
-                    <div class="tab-pane fade" id="recommendProds2" role="tabpanel" aria-labelledby="tabRecommend2">
-                        <div class="products__recommend--slider">
-                            <div class="card card-product">
-                                <a href="single-product.html" class="card-img-top"
-                                   title="Береза желтая картри лак береза желтая">
-                                    <img class="card-img-main" src="assets/img/product-1.jpg"
-                                         alt="Береза желтая картри лак береза желтая">
-                                    <img class="card-img-firm" src="assets/img/slider1/slide1.jpg" alt="firm img">
-                                    <div class="card-badge">
-                                        <span class="badge badge-danger">-30%</span>
-                                    </div>
-                                </a>
-                                <div class="card-body">
-                                    <div class="h2 card-title"><a href="single-product.html"
-                                                                  title="Береза желтая картри лак береза желтая">Береза
-                                            желтая картри лак береза желтая</a></div>
-                                    <div class="d-flex card-price">
-                                        <div class="card-price-old">2100 <span
-                                                    class="currency">&#8381;/м <sup>2</sup></span></div>
-                                        <div class="card-price-new">1930 <span
-                                                    class="currency">&#8381;/м <sup>2</sup></span></div>
-                                    </div>
-                                    <a href="#" class="btn btn-buy btn-primary" role="button" title="Купить">
-                                        <i class="material-icons">shopping_cart</i>
-                                        <span>Купить</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="recommendProds3" role="tabpanel" aria-labelledby="tabRecommend3">
-                        <div class="products__recommend--slider">
-                            <div class="card card-product">
-                                <a href="single-product.html" class="card-img-top"
-                                   title="Береза желтая картри лак береза желтая">
-                                    <img class="card-img-main" src="assets/img/product-1.jpg"
-                                         alt="Береза желтая картри лак береза желтая">
-                                    <img class="card-img-firm" src="assets/img/slider1/slide1.jpg" alt="firm img">
-                                    <div class="card-badge">
-                                        <span class="badge badge-danger">-30%</span>
-                                    </div>
-                                </a>
-                                <div class="card-body">
-                                    <div class="h2 card-title"><a href="single-product.html"
-                                                                  title="Береза желтая картри лак береза желтая">Береза
-                                            желтая картри лак береза желтая</a></div>
-                                    <div class="d-flex card-price">
-                                        <div class="card-price-old">2100 <span
-                                                    class="currency">&#8381;/м <sup>2</sup></span></div>
-                                        <div class="card-price-new">1930 <span
-                                                    class="currency">&#8381;/м <sup>2</sup></span></div>
-                                    </div>
-                                    <a href="#" class="btn btn-buy btn-primary" role="button" title="Купить">
-                                        <i class="material-icons">shopping_cart</i>
-                                        <span>Купить</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- .products__recommend -->
+                </div><!-- .products__recommend -->
             </div>
         </section>
 
@@ -252,17 +172,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="row align-items-md-center">
                     <div class="col-xl-5">
                         <div class="h2">Стоимость доставки:</div>
-                        <p>По Москве в предедах МКАД - 1500 ₽
-                            <br/>
-                            За МКАД до 20 км - 2000 ₽, свыше - 2000 ₽ + 30 ₽/км.<br/>
-                            За МКАД свыше 100 км - по договоренности.</p>
-                        <p></p>
-                        <p>При покупке от 30 м2 в пределах 30 км доставка БЕСПЛАТНА!</p>
+                        <?= $setting->cost_delivery ?>
                     </div>
                     <div class="col-md-6 col-xl-3 order-md-2">
                         <div class="support-order">
-                            <button class="btn btn-primary btn-support" data-toggle="modal" data-target="#testModal">
-                                <img src=/img/svg/builder1.svg" alt="consultant">
+                            <button class="btn btn-primary btn-support" data-toggle="modal"
+                                    data-target="#consultantModal">
+                                <img src="/img/svg/builder1.svg" alt="">
                                 <span>Консультация технолога</span>
                             </button>
                         </div>

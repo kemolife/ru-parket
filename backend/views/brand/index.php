@@ -9,15 +9,14 @@ use common\models\Status;
 /* @var $searchModel common\models\BrandSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Brands');
+$this->title = 'Бренды';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="brand-index">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    <h1><?= Html::encode($this->title) ?></h1>
     <p>
-        <?= Html::a(Yii::t('app', 'Create ') . Yii::t('app', 'Brand'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать ' . 'Бренды', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -50,13 +49,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     $searchModel,
                     'status',
                     Status::labels(),
-                    ['class' => 'form-control', 'prompt' => Yii::t('app', 'PROMPT_STATUS')]
+                    ['class' => 'form-control']
                 )
             ],
             'created_at:date',
             // 'updated_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'],
         ],
     ]); ?>
 

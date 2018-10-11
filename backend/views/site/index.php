@@ -4,22 +4,22 @@
 $this->title = 'РФ-Паркет';
 ?>
 <div class="site-index">
-    <p><?= Yii::t('app', 'Order Stat') ?></p>
+    <p>Статус заказа</p>
     <table class="table table-striped table-bordered">
         <thead>
         <tr>
             <th>&nbsp;</th>
-            <th><?= Yii::t('app', 'Today') ?></th>
-            <th><?= Yii::t('app', 'Yesterday') ?></th>
-            <th><?= Yii::t('app', 'Last Week') ?></th>
-            <th><?= Yii::t('app', 'This Week') ?></th>
-            <th><?= Yii::t('app', 'Last Month') ?></th>
-            <th><?= Yii::t('app', 'This Month') ?></th>
+            <th>Cегодня</th>
+            <th>Вчера</th>
+            <th>Прошлая неделя</th>
+            <th>На этой неделе</th>
+            <th>Прошлый месяц</th>
+            <th>Этот месяц</th>
         </tr>
         </thead>
         <tbody>
             <tr data-key="1">
-                <td><?= Yii::t('app', 'Count') ?></td>
+                <td>Число</td>
                 <td><?= $dataOrder['todayCount'] ?></td>
                 <td><?= $dataOrder['yesterdayCount'] ?></td>
                 <td><?= $dataOrder['lastWeekCount'] ?></td>
@@ -28,7 +28,7 @@ $this->title = 'РФ-Паркет';
                 <td><?= $dataOrder['thisMonthCount'] ?></td>
             </tr>
             <tr data-key="1">
-                <td><?= Yii::t('app', 'Amount') ?></td>
+                <td>Количество</td>
                 <td><?= $dataOrder['todayAmount'] ?></td>
                 <td><?= $dataOrder['yesterdayAmount'] ?></td>
                 <td><?= $dataOrder['lastWeekAmount'] ?></td>
@@ -40,22 +40,22 @@ $this->title = 'РФ-Паркет';
     </table>
 </div>
 <div class="site-index">
-    <p><?= Yii::t('app', 'User Stat') ?></p>
+    <p>Пользовательская статистика</p>
     <table class="table table-striped table-bordered">
         <thead>
         <tr>
             <th>&nbsp;</th>
-            <th><?= Yii::t('app', 'Today') ?></th>
-            <th><?= Yii::t('app', 'Yesterday') ?></th>
-            <th><?= Yii::t('app', 'Last Week') ?></th>
-            <th><?= Yii::t('app', 'This Week') ?></th>
-            <th><?= Yii::t('app', 'Last Month') ?></th>
-            <th><?= Yii::t('app', 'This Month') ?></th>
+            <th>Cегодня</th>
+            <th>Вчера</th>
+            <th>Прошлая неделя</th>
+            <th>На этой неделе</th>
+            <th>Прошлый месяц</th>
+            <th>Этот месяц</th>
         </tr>
         </thead>
         <tbody>
             <tr data-key="1">
-                <td><?= Yii::t('app', 'Count') ?></td>
+                <td>Число</td>
                 <td><?= $dataUser['todayCount'] ?></td>
                 <td><?= $dataUser['yesterdayCount'] ?></td>
                 <td><?= $dataUser['lastWeekCount'] ?></td>

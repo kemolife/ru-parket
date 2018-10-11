@@ -14,10 +14,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="point-log-index">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    <h1><?= Html::encode($this->title) ?></h1>
     <p>
-        <?= Html::a(Yii::t('app', 'Create ') . Yii::t('app', 'Point Log'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать ' . 'Адрес', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -51,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     $searchModel,
                     'type',
                     PointLog::getTypeLabels(),
-                    ['class' => 'form-control', 'prompt' => Yii::t('app', 'PROMPT_STATUS')]
+                    ['class' => 'form-control']
                 )
             ],
             'point',

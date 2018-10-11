@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\models\Banner;
+use common\models\BannerSearch;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -44,7 +45,8 @@ class BannerController extends Controller
     public function actionIndex()
     {
         //if(!Yii::$app->user->can('viewYourAuth')) throw new ForbiddenHttpException(Yii::t('app', 'No Auth'));
-        $dataProvider = Banner::find()->all();
+        $searchModel = new BannerSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
@@ -89,7 +91,7 @@ class BannerController extends Controller
                     }
                     $model->save(false);
 
-                    return $this->redirect(['view', 'id' => $model->id]);
+                    return $this->redirect(['index', 'id' => $model->id]);
                 } else {
                     return $this->render('create', [
                         'model' => $model,
@@ -131,7 +133,7 @@ class BannerController extends Controller
                 }
 
                 $model->save(false);
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['index', 'id' => $model->id]);
             } else {
                 return $this->render('create', [
                     'model' => $model,

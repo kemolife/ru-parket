@@ -29,8 +29,8 @@ class YesNo
     public static function labels($id = null)
     {
         $data = [
-            self::YES => Yii::t('app', 'YES'),
-            self::NO => Yii::t('app', 'NO'),
+            self::YES => 'Да',
+            self::NO => 'Нет'
         ];
 
         if ($id !== null && isset($data[$id])) {

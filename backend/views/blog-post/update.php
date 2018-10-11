@@ -6,10 +6,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model BlogPost */
 
-$this->title = Yii::t('blog', 'Update ') . Yii::t('blog', 'Blog Post') . ' ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('blog', 'Blog Posts'), 'url' => ['index']];
+$this->title = 'Редактировать ' . 'Блог посты' . ' ' . $model->title;
+$this->params['breadcrumbs'][] = ['label' => 'Блог посты', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('blog', 'Update');
+$this->params['breadcrumbs'][] = 'Редактировать';
 ?>
 <div class="blog-post-update">
 

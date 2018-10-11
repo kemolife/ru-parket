@@ -2,6 +2,7 @@
 
 use common\models\BlogPost;
 use common\models\BlogPostSearch;
+use common\models\Status;
 use common\models\StatusBlog;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -11,15 +12,14 @@ use yii\helpers\ArrayHelper;
 /* @var $searchModel BlogPostSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('blog', 'Blog Posts');
+$this->title = 'Блог посты';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="blog-post-index">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    <h1><?= Html::encode($this->title) ?></h1>
     <p>
-        <?= Html::a(Yii::t('blog', 'Create ') . Yii::t('blog', 'Blog Post'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать ' . 'посты блога', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         $searchModel,
                         'catalog_id',
                         BlogPost::getArrayCatalog(),
-                        ['class' => 'form-control', 'prompt' => Yii::t('blog', 'Please Filter')]
+                        ['class' => 'form-control']
                     )
             ],
             'title',
@@ -51,9 +51,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'status',
                 'format' => 'html',
                 'value' => function ($model) {
-                        if ($model->status === StatusBlog::STATUS_ACTIVE) {
+                        if ($model->status === Status::STATUS_ACTIVE) {
                             $class = 'label-success';
-                        } elseif ($model->status === StatusBlog::STATUS_INACTIVE) {
+                        } elseif ($model->status === Status::STATUS_INACTIVE) {
                             $class = 'label-warning';
                         } else {
                             $class = 'label-danger';
@@ -64,14 +64,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => Html::activeDropDownList(
                         $searchModel,
                         'status',
-                        StatusBlog::labels(),
-                        ['class' => 'form-control', 'prompt' => Yii::t('blog', 'PROMPT_STATUS')]
+                        Status::labels(),
+                        ['class' => 'form-control']
                     )
             ],
             'created_at:date',
             // 'update_time',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'],
         ],
     ]); ?>
 

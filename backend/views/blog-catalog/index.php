@@ -1,6 +1,7 @@
 <?php
 
 use common\models\BlogCatalog;
+use common\models\Status;
 use common\models\StatusBlog;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -10,15 +11,14 @@ use yii\helpers\ArrayHelper;
 /* @var $searchModel funson86\blog\models\BlogCatalogSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('blog', 'Blog Catalogs');
+$this->title = 'Блог категории';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="blog-catalog-index">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    <h1><?= Html::encode($this->title) ?></h1>
     <p>
-        <?= Html::a(Yii::t('blog', 'Create ') . Yii::t('blog', 'Blog Catalog'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать ' . 'категорию блога', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <table class="table table-striped table-bordered">
@@ -42,12 +42,10 @@ $this->params['breadcrumbs'][] = $this->title;
             <td><?= $item['sort_order']; ?></td>
             <td><?= $item['template']; ?></td>
             <td><?= BlogCatalog::getOneIsNavLabel($item['is_nav']); ?></td>
-            <td><?= StatusBlog::labels()[$item['status']]; ?></td>
+            <td><?= Status::labels()[$item['status']]; ?></td>
             <td>
-                <a href="<?= \Yii::$app->getUrlManager()->createUrl(['blog/blog-catalog/create','parent_id'=>$item['id']]); ?>" title="<?= Yii::t('blog', 'Add Sub Catelog');?>" data-pjax="0"><span class="glyphicon glyphicon-plus-sign"></span></a>
-                <a href="<?= \Yii::$app->getUrlManager()->createUrl(['blog/blog-catalog/view','id'=>$item['id']]); ?>"" title="<?= Yii::t('blog', 'View');?>" data-pjax="0"><span class="glyphicon glyphicon-eye-open"></span></a>
-                <a href="<?= \Yii::$app->getUrlManager()->createUrl(['blog/blog-catalog/update','id'=>$item['id']]); ?>"" title="<?= Yii::t('blog', 'Update');?>" data-pjax="0"><span class="glyphicon glyphicon-pencil"></span></a>
-                <a href="<?= \Yii::$app->getUrlManager()->createUrl(['blog/blog-catalog/delete','id'=>$item['id']]); ?>"" title="<?= Yii::t('blog', 'Delete');?>" data-confirm="<?= Yii::t('blog', 'Are you sure you want to delete this item?');?>" data-method="post" data-pjax="0"><span class="glyphicon glyphicon-trash"></span></a>
+                <a href="<?= \Yii::$app->getUrlManager()->createUrl(['blog-catalog/update','id'=>$item['id']]); ?>"" title="<?= Yii::t('blog', 'Update');?>" data-pjax="0"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a href="<?= \Yii::$app->getUrlManager()->createUrl(['blog-catalog/delete','id'=>$item['id']]); ?>"" title="<?= Yii::t('blog', 'Delete');?>" data-confirm="<?= Yii::t('blog', 'Are you sure you want to delete this item?');?>" data-method="post" data-pjax="0"><span class="glyphicon glyphicon-trash"></span></a>
             </td>
         </tr>
         <?php } ?>

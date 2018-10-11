@@ -9,15 +9,14 @@ use common\models\Status;
 /* @var $searchModel common\models\CommentSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title =  'Comments');
+$this->title =  'Комментарии';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="comment-index">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    <h1><?= Html::encode($this->title) ?></h1>
     <p>
-        <?= Html::a( 'Create ') .  'Comment'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать ' . 'Комментарии', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -64,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     $searchModel,
                     'status',
                     Status::labels(),
-                    ['class' => 'form-control', 'prompt' =>  'PROMPT_STATUS')]
+                    ['class' => 'form-control']
                 )
             ],
             'created_at:date',
@@ -72,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'created_by',
             // 'updated_by',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'],
         ],
     ]); ?>
 

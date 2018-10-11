@@ -47,9 +47,9 @@ class User extends \common\models\User
     public static function getArrayStatus()
     {
         return [
-            self::STATUS_ACTIVE => Yii::t('app', 'STATUS_ACTIVE'),
-            self::STATUS_INACTIVE => Yii::t('app', 'STATUS_INACTIVE'),
-            self::STATUS_DELETED => Yii::t('app', 'STATUS_DELETED'),
+            self::STATUS_ACTIVE => 'Активный',
+            self::STATUS_INACTIVE => 'Неактивный',
+            self::STATUS_DELETED => 'Удаленный',
         ];
     }
 
@@ -136,9 +136,9 @@ class User extends \common\models\User
         return array_merge(
             $labels,
             [
-                'password' => Yii::t('app', 'Password'),
-                'repassword' => Yii::t('app', 'Repassword'),
-                'oldpassword' => Yii::t('app', 'Oldpassword'),
+                'password' => 'Пароль',
+                'repassword' => 'Повторить пароль',
+                'oldpassword' => 'Старий пароль',
             ]
         );
     }

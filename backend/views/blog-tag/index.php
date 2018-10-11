@@ -9,15 +9,14 @@ use yii\helpers\ArrayHelper;
 /* @var $searchModel BlogTagSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('blog', 'Blog Tags');
+$this->title = 'Блог теги';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="blog-tag-index">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    <h1><?= Html::encode($this->title) ?></h1>
     <p>
-        <?= Html::a(Yii::t('blog', 'Create ') . Yii::t('blog', 'Blog Tag'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать ' . 'теги блога', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -30,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'frequency',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'],
         ],
     ]); ?>
 

@@ -9,15 +9,16 @@ use common\models\YesNo;
 /* @var $searchModel common\models\AddressSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Addresses');
+$this->title = 'Адрес';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="address-index">
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
+    <h1><?= Html::encode($this->title) ?></h1>
     <p>
-        <?= Html::a(Yii::t('app', 'Create ') . Yii::t('app', 'Address'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать ' . 'Адрес', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -75,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     $searchModel,
                     'default',
                     YesNo::labels(),
-                    ['class' => 'form-control', 'prompt' => Yii::t('app', 'PROMPT_STATUS')]
+                    ['class' => 'form-control']
                 )
             ],
             'created_at:date',
@@ -83,7 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'created_by',
             // 'updated_by',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'],
         ],
     ]); ?>
 

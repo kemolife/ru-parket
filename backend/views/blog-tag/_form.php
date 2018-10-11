@@ -18,8 +18,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'frequency')->textInput(['maxlength' => 10]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('blog', 'Create') : Yii::t('blog', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-    </div>
+        <?= Html::submitButton($model->isNewRecord ?  'Создать' :  'Изменить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?> </div>
 
     <?php ActiveForm::end(); ?>
 

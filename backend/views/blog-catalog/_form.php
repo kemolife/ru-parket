@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Status;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
@@ -11,7 +12,7 @@ use funson86\blog\Module;
 /* @var $form yii\widgets\ActiveForm */
 
 //fix the issue that it can assign itself as parent
-$parentCatalog = ArrayHelper::merge([0 => Yii::t('blog', 'Root Catalog')], ArrayHelper::map(BlogCatalog::get(0, BlogCatalog::find()->all()), 'id', 'str_label'));
+$parentCatalog = ArrayHelper::merge([0 => 'Главная категория'], ArrayHelper::map(BlogCatalog::get(0, BlogCatalog::find()->all()), 'id', 'str_label'));
 unset($parentCatalog[$model->id]);
 
 ?>
@@ -19,11 +20,7 @@ unset($parentCatalog[$model->id]);
 <div class="blog-catalog-form">
 
     <?php $form = ActiveForm::begin([
-        'options'=>['class' => 'form-horizontal', 'enctype'=>'multipart/form-data'],
-        'fieldConfig' => [
-            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-5\">{error}</div>",
-            'labelOptions' => ['class' => 'col-lg-2 control-label'],
-        ],
+        'options'=>['enctype'=>'multipart/form-data'],
     ]); ?>
 
     <?= $form->field($model, 'parent_id')->dropDownList($parentCatalog) ?>
@@ -44,11 +41,10 @@ unset($parentCatalog[$model->id]);
 
     <?= $form->field($model, 'redirect_url')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'status')->dropDownList(\funson86\blog\models\Status::labels()) ?>
+    <?= $form->field($model, 'status')->dropDownList(Status::labels()) ?>
 
     <div class="form-group">
-        <label class="col-lg-2 control-label" for="">&nbsp;</label>
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('blog', 'Create') : Yii::t('blog', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ?  'Создать' :  'Изменить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -207,12 +207,7 @@ $this->registerCssFile('@web/css/checkout.css', ['depends' => \frontend\assets\A
                             <p>Внимание, самовыаоз возможен только по предварительной договоренности с менеджером!</p>
                             <br>
                         </div>
-                        <p>По Москве в предедах МКАД - 1500 ₽
-                            <br/>
-                            За МКАД до 20 км - 2000 ₽, свыше - 2000 ₽ + 30 ₽/км.<br/>
-                            За МКАД свыше 100 км - по договоренности.</p>
-                        <br>
-                        <p>При покупке от 30 м2 в пределах 30 км доставка БЕСПЛАТНА!</p>
+                        <?= $setting->cost_delivery ?>
                     </div><!-- .checkout__secondary -->
                     <?= $this->render('part/your-order', ['product' => $products]) ?>
                 </div>

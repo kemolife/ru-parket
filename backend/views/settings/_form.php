@@ -1,6 +1,7 @@
 <?php
 
 use common\models\YesNo;
+use mihaildev\ckeditor\CKEditor;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
@@ -15,11 +16,7 @@ use common\models\Settings;
 
     <?php $form = ActiveForm::begin([
         'id' => 'mend-form',
-        'options' => ['class' => 'form-horizontal', 'enctype'=>'multipart/form-data'],
-        'fieldConfig' => [
-            'template' => "{label}\n<div class=\"col-lg-3\">{input}{hint}</div>\n<div class=\"col-lg-5\">{error}</div>",
-            'labelOptions' => ['class' => 'col-lg-2 control-label'],
-        ],
+        'options' => ['enctype'=>'multipart/form-data'],
     ]); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => 128]) ?>
@@ -39,20 +36,54 @@ use common\models\Settings;
     <?= $form->field($model, 'logo')->fileInput() ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
-    <?= $form->field($model, 'policy')->textarea(['rows' => 6]) ?>
-    <?= $form->field($model, 'work_hours')->textarea(['rows' => 6]) ?>
-    <?= $form->field($model, 'seo_description')->textarea(['rows' => 6]) ?>
-    <?= $form->field($model, 'work_hours')->textarea(['rows' => 6]) ?>
-    <?= $form->field($model, 'seo_categories_description')->textarea(['rows' => 6]) ?>
-    <?= $form->field($model, 'contact_info')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'policy')->widget(CKEditor::className(), [
+        'editorOptions' => [
+            'preset' => 'full',
+            'inline' => false,
+        ],
+    ]); ?>
+    <?= $form->field($model, 'work_hours')->widget(CKEditor::className(), [
+        'editorOptions' => [
+            'preset' => 'full',
+            'inline' => false,
+        ],
+    ]); ?>
+    <?= $form->field($model, 'seo_description')->widget(CKEditor::className(), [
+        'editorOptions' => [
+            'preset' => 'full',
+            'inline' => false,
+        ],
+    ]); ?>
+    <?= $form->field($model, 'seo_categories_description')->widget(CKEditor::className(), [
+        'editorOptions' => [
+            'preset' => 'full',
+            'inline' => false,
+        ],
+    ]); ?>
+    <?= $form->field($model, 'contact_info')->widget(CKEditor::className(), [
+        'editorOptions' => [
+            'preset' => 'full',
+            'inline' => false,
+        ],
+    ]); ?>
     <?= $form->field($model, 'lat_log')->fileInput() ?>
-    <?= $form->field($model, 'cost_departure')->fileInput() ?>
+    <?= $form->field($model, 'cost_departure')->widget(CKEditor::className(), [
+        'editorOptions' => [
+            'preset' => 'full',
+            'inline' => false,
+        ],
+    ]); ?>
+    <?= $form->field($model, 'cost_delivery')->widget(CKEditor::className(), [
+        'editorOptions' => [
+            'preset' => 'full',
+            'inline' => false,
+        ],
+    ]); ?>
 
     <?= $form->field($model, 'status')->dropDownList(\common\models\Status::labels()) ?>
 
     <div class="form-group">
-        <label class="col-lg-2 control-label" for="">&nbsp;</label>
-        <?= Html::submitButton($model->isNewRecord ?  'Create' :  'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ?  'Создать' :  'Изменить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

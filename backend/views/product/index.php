@@ -11,16 +11,15 @@ use common\models\YesNo;
 /* @var $searchModel common\models\ProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Products');
+$this->title = 'Продукты';
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="product-index">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    <h1><?= Html::encode($this->title) ?></h1>
     <p>
-        <?= Html::a(Yii::t('app', 'Create ') . Yii::t('app', 'Product'), ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a(Yii::t('app', 'Batch ') . Yii::t('app', 'Delete'), '#', ['class' => 'btn btn-danger', 'id' => 'batchDelete']) ?>
+        <?= Html::a('Создать ' . 'Продукты', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -39,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     $searchModel,
                     'category_id',
                     ArrayHelper::map(Category::get(0, Category::find()->asArray()->all()), 'id', 'label'),
-                    ['class' => 'form-control', 'prompt' => Yii::t('app', 'Please Filter')]
+                    ['class' => 'form-control']
                 ),
             ],
             'name',
@@ -77,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     $searchModel,
                     'type',
                     ArrayHelper::map(\common\models\Brand::find()->all(), 'id', 'name'),
-                    ['class' => 'form-control', 'prompt' => Yii::t('app', 'Please Filter')]
+                    ['class' => 'form-control']
                 )
             ],
             [
@@ -98,7 +97,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     $searchModel,
                     'status',
                     Status::labels(),
-                    ['class' => 'form-control', 'prompt' => Yii::t('app', 'PROMPT_STATUS')]
+                    ['class' => 'form-control']
                 )
             ],
 
@@ -107,7 +106,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'created_by',
             // 'updated_by',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'],
         ],
     ]); ?>
 

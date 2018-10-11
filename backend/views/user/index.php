@@ -9,15 +9,14 @@ use yii\helpers\ArrayHelper;
 /* @var $searchModel backend\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Users');
+$this->title = 'Пользователи';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    <h1><?= Html::encode($this->title) ?></h1>
     <p>
-        <?= Html::a(Yii::t('app', 'Create ') . Yii::t('app', 'User'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать ' . 'Пользователи', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -44,18 +43,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         ['class' => 'form-control', 'prompt' => Yii::t('app', 'Please Filter')]
                     )
             ],*/
-            [
-                'attribute' => 'auth_role',
-                'value' => function ($model) {
-                            return $model->authRole ? $model->authRole->name : '-';
-                        },
-                'filter' => Html::activeDropDownList(
-                        $searchModel,
-                        'auth_role',
-                        User::getArrayAuthRole(),
-                        ['class' => 'form-control', 'prompt' => Yii::t('app', 'Please Filter')]
-                    )
-            ],
+//            [
+//                'attribute' => 'auth_role',
+//                'value' => function ($model) {
+//                            return $model->authRole ? $model->authRole->name : '-';
+//                        },
+//                'filter' => Html::activeDropDownList(
+//                        $searchModel,
+//                        'auth_role',
+//                        User::getArrayAuthRole(),
+//                        ['class' => 'form-control', 'prompt' => Yii::t('app', 'Please Filter')]
+//                    )
+//            ],
             [
                 'attribute' => 'status',
                 'format' => 'html',
@@ -74,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         $searchModel,
                         'status',
                         $arrayStatus,
-                        ['class' => 'form-control', 'prompt' => Yii::t('app', 'Please Filter')]
+                        ['class' => 'form-control']
                     )
             ],
             //'created_at',
@@ -84,7 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             //'updated_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'],
         ],
     ]); ?>
 

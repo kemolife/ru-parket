@@ -4,12 +4,14 @@ namespace frontend\controllers;
 
 use common\models\Address;
 use common\models\Cart;
+use common\models\Category;
 use common\models\Coupon;
 use common\models\Order;
 use common\models\OrderLog;
 use common\models\OrderProduct;
 use common\models\PointLog;
 use common\models\Product;
+use common\models\Settings;
 use common\models\User;
 use Yii;
 use yii\filters\AccessControl;
@@ -18,6 +20,8 @@ use yii\web\Response;
 
 class CartController extends \frontend\components\Controller
 {
+    public $layout = 'mainSimple';
+
 //    public function behaviors()
 //    {
 //        return [
@@ -59,9 +63,13 @@ class CartController extends \frontend\components\Controller
         }
 
         $products = Cart::find()->where(['or', 'session_id = "' . Yii::$app->session->id . '"', 'user_id = ' . (Yii::$app->user->id ? Yii::$app->user->id : -1)])->all();
+        $sameCategories = Category::getSameCatForProducts($products);
+        $setting = Settings::find()->one();
         if (count($products)) {
             return $this->render('index', [
                 'products' => $products,
+                'sameCategories' => $sameCategories,
+                'setting' => $setting,
             ]);
         } else {
             return $this->render('cart-no-product', [
@@ -227,6 +235,7 @@ class CartController extends \frontend\components\Controller
 
     public function actionAddress($id = null)
     {
+        $setting = Settings::find()->one();
         if ($id) {
             $model = Address::findOne($id);
             if ($model === null)
@@ -243,6 +252,7 @@ class CartController extends \frontend\components\Controller
 
         return $this->render('address', [
             'model' => $model,
+            'setting' => $setting
         ]);
     }
 

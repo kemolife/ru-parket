@@ -14,12 +14,7 @@ use mihaildev\ckeditor\CKEditor;
     <div class="product-form">
 
         <?php $form = ActiveForm::begin([
-            'id' => 'mend-form',
-            'options' => ['class' => 'form-horizontal'],
-            'fieldConfig' => [
-                'template' => "{label}\n<div class=\"col-lg-6\">{input}{hint}</div>\n<div class=\"col-lg-5\">{error}</div>",
-                'labelOptions' => ['class' => 'col-lg-1 control-label'],
-            ],
+            'id' => 'mend-form'
         ]); ?>
 
         <?= $form->field($model, 'category_id')->dropDownList(ArrayHelper::map(Category::get(0, Category::find()->asArray()->all()), 'id', 'label')) ?>
@@ -89,9 +84,7 @@ use mihaildev\ckeditor\CKEditor;
         </div>
 
         <div class="form-group">
-            <label class="col-lg-2 control-label" for="">&nbsp;</label>
-            <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-        </div>
+            <?= Html::submitButton($model->isNewRecord ?  'Создать' :  'Изменить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?></div>
 
         <?php ActiveForm::end(); ?>
 

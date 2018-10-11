@@ -70,9 +70,9 @@ class Status
     public static function labels($id = null)
     {
         $data = [
-            self::STATUS_ACTIVE => Yii::t('app', 'STATUS_ACTIVE'),
-            self::STATUS_INACTIVE => Yii::t('app', 'STATUS_INACTIVE'),
-            self::STATUS_DELETED => Yii::t('app', 'STATUS_DELETED'),
+            self::STATUS_ACTIVE => 'Активный',
+            self::STATUS_INACTIVE => 'Неактивный',
+            self::STATUS_DELETED => 'Удаленный',
         ];
 
         if ($id !== null && isset($data[$id])) {

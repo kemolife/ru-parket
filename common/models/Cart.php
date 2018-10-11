@@ -89,6 +89,11 @@ class Cart extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getProduct()
+    {
+        return $this->hasOne(Product::className(), ['id' => 'product_id']);
+    }
+
     /**
      * Before save.
      * 

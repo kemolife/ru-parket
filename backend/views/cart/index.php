@@ -8,15 +8,14 @@ use yii\helpers\ArrayHelper;
 /* @var $searchModel common\models\CartSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Carts');
+$this->title = 'Корзина';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cart-index">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    <h1><?= Html::encode($this->title) ?></h1>
     <p>
-        <?= Html::a(Yii::t('app', 'Clean ') . Yii::t('app', 'Cart'), ['clean'], ['class' => 'btn btn-success', 'data-method' => 'post', 'data-confirm' => Yii::t('app', 'Are you sure you want to clean?')]) ?>
+        <?= Html::a('Создать ' . 'Корзину', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -44,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'created_at:date',
             // 'updated_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'],
         ],
     ]); ?>
 

@@ -7,10 +7,14 @@ use yii\helpers\ArrayHelper;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title =  'Settings';
+$this->title =  'Настройки';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="banner-index">
+    <h1><?= Html::encode($this->title) ?></h1>
+    <p>
+        <?= Html::a('Создать ' . 'Настройки', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
     <table class="table table-striped table-bordered">
         <thead>
         <tr>

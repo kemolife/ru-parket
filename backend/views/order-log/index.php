@@ -8,15 +8,14 @@ use yii\helpers\ArrayHelper;
 /* @var $searchModel common\models\OrderLogSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Order Logs');
+$this->title = 'Лог заказов';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="order-log-index">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    <h1><?= Html::encode($this->title) ?></h1>
     <p>
-        <?= Html::a(Yii::t('app', 'Create ') . Yii::t('app', 'Order Log'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать ' . 'Лог заказов', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -36,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     $searchModel,
                     'status',
                     \common\models\Order::getStatusLabels(),
-                    ['class' => 'form-control', 'prompt' => Yii::t('app', 'PROMPT_STATUS')]
+                    ['class' => 'form-control']
                 )
             ],
             'remark',
@@ -50,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             // 'updated_by',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}'],
         ],
     ]); ?>
 

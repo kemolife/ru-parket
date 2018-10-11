@@ -42,7 +42,7 @@ class OrderSearch extends Order
      */
     public function search($params)
     {
-        $query = Order::find();
+        $query = Order::find()->andWhere(['not in','status', [Order::STATUS_CANCEL, Order::STATUS_DELETED]]);
         
         $query->orderBy(['created_at' => SORT_DESC]);
 

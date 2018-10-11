@@ -62,7 +62,7 @@ class RoleController extends Controller
             $permissions = $this->preparePermissions(Yii::$app->request->post());
             if($model->createRole($permissions)) {
                 Yii::$app->session->setFlash('success', " '$model->name' " . Yii::t('app', 'successfully saved'));
-                return $this->redirect(['view', 'name' => $model->name]);
+                return $this->redirect(['index', 'name' => $model->name]);
             }
             else
             {
@@ -90,14 +90,14 @@ class RoleController extends Controller
 
         if($name == 'admin') {
             Yii::$app->session->setFlash('success', Yii::t('app', 'The Administrator has all permissions'));
-            return $this->redirect(['view', 'name' => $name]);
+            return $this->redirect(['index', 'name' => $name]);
         }
         $model = $this->findModel($name);
         if ($model->load(Yii::$app->request->post())) {
             $permissions = $this->preparePermissions(Yii::$app->request->post());
             if($model->updateRole($name, $permissions)) {
                 Yii::$app->session->setFlash('success', " '$model->name' " . Yii::t('app', 'successfully updated'));
-                return $this->redirect(['view', 'name' => $name]);
+                return $this->redirect(['index', 'name' => $name]);
             }
         } else {
             $permissions = $this->getPermissions();
