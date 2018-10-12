@@ -21,6 +21,9 @@ use common\models\Banner;
     <?= $form->field($model, 'name')->textInput(['maxlength' => 128]) ?>
 
     <?= $form->field($model, 'image')->fileInput() ?>
+    <?php if($model->image){ ?>
+        <img width="20%" src="/<?= $model->image ?>">
+    <?php } ?>
 
     <?= $form->field($model, 'description_big')->textarea(['rows' => 6]) ?>
 
@@ -29,7 +32,7 @@ use common\models\Banner;
     <?= $form->field($model, 'status')->dropDownList(\common\models\Status::labels()) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ?  'Создать' :  'Изменить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>  <?= Html::submitButton($model->isNewRecord ?  'Create' :  'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ?  'Создать' :  'Изменить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

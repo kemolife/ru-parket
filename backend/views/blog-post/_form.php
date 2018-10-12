@@ -39,6 +39,9 @@ use mihaildev\ckeditor\CKEditor;
 
     <?= $form->field($model, 'banner')->fileInput() ?>
 
+    <?php if($model->banner){ ?>
+        <img width="20%" src="/<?= $model->banner ?>">
+    <?php } ?>
     <?= $form->field($model, 'click')->textInput() ?>
 
     <?= $form->field($model, 'status')->dropDownList(Status::labels()) ?>

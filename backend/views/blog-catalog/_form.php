@@ -30,6 +30,9 @@ unset($parentCatalog[$model->id]);
     <?= $form->field($model, 'surname')->textInput(['maxlength' => 128]) ?>
 
     <?= $form->field($model, 'banner')->fileInput() ?>
+    <?php if($model->banner){ ?>
+        <img width="20%" src="/<?= $model->banner ?>">
+    <?php } ?>
 
     <?= $form->field($model, 'is_nav')->dropDownList(BlogCatalog::getArrayIsNav()) ?>
 

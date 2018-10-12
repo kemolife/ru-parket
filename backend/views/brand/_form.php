@@ -16,6 +16,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'logo')->textInput(['maxlength' => 255]) ?>
 
+    <?php if($model->logo){ ?>
+        <img width="20%" src="/<?= $model->logo ?>">
+    <?php } ?>
+
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'url')->textInput(['maxlength' => 255]) ?>

@@ -30,6 +30,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'thumb')->textInput(['maxlength' => 255]) ?>
 
+    <?php if($model->thumb){ ?>
+        <img width="20%" src="/<?= $model->thumb ?>">
+    <?php } ?>
+
     <?= $form->field($model, 'type')->textInput() ?>
 
     <div class="form-group">
