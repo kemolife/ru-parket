@@ -35,6 +35,10 @@ use common\models\Settings;
 
     <?= $form->field($model, 'logo')->fileInput() ?>
 
+    <?php if($model->logo){ ?>
+        <img width="20%" src="/<?= $model->logo ?>">
+    <?php } ?>
+
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
     <?= $form->field($model, 'policy')->widget(CKEditor::className(), [
         'editorOptions' => [

@@ -66,15 +66,15 @@ class BlogComment extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('blog', 'ID'),
-            'post_id' => Yii::t('blog', 'Post ID'),
-            'content' => Yii::t('blog', 'Content'),
-            'author' => Yii::t('blog', 'Author'),
-            'email' => Yii::t('blog', 'Email'),
-            'url' => Yii::t('blog', 'Url'),
-            'status' => Yii::t('blog', 'Status'),
-            'created_at' => Yii::t('blog', 'Created At'),
-            'updated_at' => Yii::t('blog', 'Updated At'),
+            'id' => Yii::t('app', 'ID'),
+            'post_id' => Yii::t('app', 'Post ID'),
+            'content' => Yii::t('app', 'Content'),
+            'author' => Yii::t('app', 'Author'),
+            'email' => Yii::t('app', 'Email'),
+            'url' => Yii::t('app', 'Url'),
+            'status' => Yii::t('app', 'Status'),
+            'created_at' => Yii::t('app', 'Created At'),
+            'updated_at' => Yii::t('app', 'Updated At'),
         ];
     }
 

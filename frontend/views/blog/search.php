@@ -1,13 +1,21 @@
 <?php
 use yii\widgets\LinkPager;
+$this->title = 'Блог';
+$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['/blog']];
+$this->params['breadcrumbs'][] = $model->name;
 ?>
 <main class="main" role="main">
 
     <div class="container blog">
         <nav aria-label="hidden__down--md breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Главная</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Блог</li>
+                <?= \yii\widgets\Breadcrumbs::widget([
+                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                    'options' => ['class' => 'breadcrumb'],
+                    'tag' => 'div',
+                    'itemTemplate' => '<li class="breadcrumb-item">{link}</li>',
+                    'activeItemTemplate' => '<li class="breadcrumb-item active" aria-current="page">{link}</li>',
+                ]) ?>
             </ol>
         </nav>
         <header class="page-title text-center">

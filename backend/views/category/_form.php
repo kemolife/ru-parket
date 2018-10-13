@@ -30,6 +30,10 @@ unset($parentCategory[$model->id]);
 
     <?= $form->field($model, 'banner')->fileInput() ?>
 
+    <?php if($model->banner){ ?>
+        <img width="20%" src="/<?= $model->banner ?>">
+    <?php } ?>
+
     <?= $form->field($model, 'keywords')->textInput(['maxlength' => 255]) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>

@@ -22,8 +22,8 @@ use yii\widgets\ActiveForm;
 </div>
 
 <div class="text-center text-sm-right">
-    <?= Html::button(Yii::t('blog', '<span>Опубликовать</span>
-        <i class="material-icons">arrow_forward</i>'), ['class' => 'btn btn-primary btn-icon', 'type' => 'submit']) ?>
+    <?= Html::button('<span>Опубликовать</span>
+        <i class="material-icons">arrow_forward</i>', ['class' => 'btn btn-primary btn-icon', 'type' => 'submit']) ?>
 </div>
 
 <?php ActiveForm::end(); ?>

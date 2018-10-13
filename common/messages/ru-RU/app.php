@@ -169,5 +169,6 @@ return [
     'IS_GIFT' => 'Подарок',
     'IS_PROMOTE' => 'Акция',
     'IS_GROUP' => 'Группа',
+    'Author' => 'Автор',
 
 ];

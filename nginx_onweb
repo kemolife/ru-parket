@@ -1,0 +1,78 @@
+frontend
+server {
+    server_name parket.onweb.com.ua www.parket.onweb.com.ua  ;
+
+    listen 46.36.222.105:80;
+
+    listen [2a03:f480:1:14::89]:80;
+    gzip on;
+    gzip_proxied expired no-cache no-store private auth;
+    gzip_types text/css text/xml application/javascript text/plain application/json image/svg+xml image/x-icon;
+    gzip_comp_level 1;
+
+    set $root_path /var/www/fastuser/data/www/parket.onweb.com.ua;
+    root $root_path;
+    disable_symlinks if_not_owner from=$root_path;
+
+
+    location / {
+        index index.php index.html;
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    location /backend/ {
+        try_files $uri $uri/ /backend/index.php$is_args$args;
+        #auth_basic "closed site";
+        #auth_basic_user_file https_passw;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/var/run/parket.onweb.com.ua.sock;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include /etc/nginx/fastcgi_params;
+     }
+
+     location ~* ^.+\.(jpg|jpeg|gif|png|svg|js|css|mp3|ogg|mpeg|avi|zip|gz|bz2|rar|swf|ico)$ {
+        try_files $uri $uri/ @fallback;
+    }
+
+    location @fallback {
+        fastcgi_pass unix:/var/run/parket.onweb.com.ua.sock;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include /etc/nginx/fastcgi_params;
+    }
+
+    include "/etc/nginx/fastpanel2-sites/fastuser/parket.onweb.com.ua.includes";
+    include /etc/nginx/fastpanel2-includes/*.conf;
+
+    error_log /var/www/fastuser/data/logs/parket.onweb.com.ua-frontend.error.log;
+    access_log /var/www/fastuser/data/logs/parket.onweb.com.ua-frontend.access.log;
+}
+
+backend
+[parket.onweb.com.ua]
+user = fastuser
+group = fastuser
+listen = /var/run/parket.onweb.com.ua.sock
+listen.owner = fastuser
+listen.group = www-data
+listen.mode = 0660
+
+pm = dynamic
+pm.max_children = 2
+pm.min_spare_servers = 1
+pm.max_spare_servers = 2
+
+chdir=/var/www/fastuser/data/www/parket.onweb.com.ua
+
+php_admin_value[date.timezone] = "Europe/Moscow"
+php_admin_value[display_errors] = "On"
+php_admin_value[mail.add_x_header] = "On"
+php_admin_value[max_execution_time] = "120"
+php_admin_value[post_max_size] = "100M"
+php_admin_value[sendmail_path] = "/usr/sbin/sendmail -t -i -f 'admin@parket.onweb.com.ua'"
+php_admin_value[session.save_path] = "/var/www/fastuser/data/tmp"
+php_admin_value[upload_max_filesize] = "100M"
+php_admin_value[upload_tmp_dir] = "/var/www/fastuser/data/tmp"
+catch_workers_output = yes
+access.format = "%{REMOTE_ADDR}e - [%t] \"%m %r\" %s %{kilo}M \"%{HTTP_REFERER}e\" \"%{HTTP_USER_AGENT}e\""

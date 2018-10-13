@@ -50,10 +50,16 @@ foreach ($products as $product){
                     </button>
                 </div>
                 <div class="col-4 col-lg-3 text-right header__account">
-                    <a href="login.html" class="btn btn-modal" role="button" title="Личный кабинет">
-                        <span>Личный кабинет</span>
-                        <i class="material-icons">person</i>
-                    </a>
+                    <?php if (Yii::$app->user->isGuest) { ?>
+                        <a href="<?= Yii::$app->urlManager->createUrl(['/site/login/']) ?>" class="btn btn-modal" role="button" title="Личный кабинет">
+                            <span>Личный кабинет</span>
+                            <i class="material-icons">person</i>
+                        </a>
+                    <?php } else { ?>
+                        <a class=""
+                           href="<?= Yii::$app->urlManager->createUrl(['/user/profile/']) ?>"><?= Yii::$app->user->identity->username ?></a>&nbsp;[
+                        <a href="<?= Yii::$app->urlManager->createUrl(['site/logout']) ?>">Выйти</a>]
+                    <?php } ?>
                 </div>
                 <div class="col-4 text-right hidden__up--lg header__cart">
                     <button class="btn btn-modal" data-toggle="modal" data-target="#testModal">

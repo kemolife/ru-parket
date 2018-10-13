@@ -18,7 +18,7 @@ use Yii;
 use yii\data\Pagination;
 use yii\widgets\ActiveForm;
 
-class BlogController extends Controller
+class BlogController extends \frontend\components\Controller
 {
     public function actionIndex()
     {
@@ -50,13 +50,14 @@ class BlogController extends Controller
 
     public function actionPost($id)
     {
+
         if ($id) {
             $recommendedItems = Product::find()->where(['status' => Product::STATUS_ACTIVE])->orderBy(['created_at' => SORT_DESC])->limit(10)->all();
             $posts = BlogPost::find()->orderBy('created_at desc')->limit(2)->all();
             $post = BlogPost::findOne(Yii::$app->request->get('id'));
             $post->updateCounters(['click' => 1]);
             $comments = BlogComment::find()->where(['post_id' => $post->id, 'status' => StatusBlog::STATUS_ACTIVE])->orderBy(['created_at' => SORT_ASC])->all();
-            $comment = $this->newComment($post);
+            $commenMtodel = $this->newComment($post);
         } else {
             $this->redirect(['/blog']);
         }
@@ -64,7 +65,7 @@ class BlogController extends Controller
         return $this->render('post', [
             'post' => $post,
             'comments' => $comments,
-            'comment' => $comment,
+            'commentModel' => $commenMtodel,
             'recommendedItems' => $recommendedItems,
             'posts' => $posts,
         ]);

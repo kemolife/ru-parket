@@ -6,6 +6,7 @@ use common\models\Address;
 use common\models\Cart;
 use common\models\Category;
 use common\models\Coupon;
+use common\models\LoginForm;
 use common\models\Order;
 use common\models\OrderLog;
 use common\models\OrderProduct;
@@ -13,6 +14,8 @@ use common\models\PointLog;
 use common\models\Product;
 use common\models\Settings;
 use common\models\User;
+use frontend\helpers\CustomHelper;
+use frontend\models\SignupForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
@@ -80,6 +83,12 @@ class CartController extends \frontend\components\Controller
 
     public function actionCheckout()
     {
+        $products = Cart::find()->where(['or', 'session_id = "' . Yii::$app->session->id . '"', 'user_id = ' . (Yii::$app->user->id ? Yii::$app->user->id : -1)])->all();
+
+        if (!count($products)) {
+            return $this->redirect('/cart');
+        }
+
         Yii::$app->session['step'] = 3;
 
         $userId = Yii::$app->user->id;
@@ -212,25 +221,48 @@ class CartController extends \frontend\components\Controller
 
         }
 
-        $products = Cart::find()->where(['session_id' => Yii::$app->session->id])->all();
-        if (!count($products)) {
+        if(Yii::$app->user->identity instanceof User){
+            return $this->redirect('personal-data-checkout');
+        }else{
+            return $this->render('personal-data', [
+                'model' => $model,
+                'products' => $products,
+                'modelSignUp' => (new SignupForm()),
+                'modelLogin' => (new LoginForm()),
+            ]);
+        }
+    }
+    public function actionPersonalDataCheckout()
+    {
+        $products = Cart::find()->where(['or', 'session_id = "' . Yii::$app->session->id . '"', 'user_id = ' . (Yii::$app->user->id ? Yii::$app->user->id : -1)])->all();
+        $model = new Order();
+
+        if(!Yii::$app->request->isPost){
             return $this->redirect('/cart');
         }
-        if (count($addresses)) {
-//            return $this->render('checkout', [
-//                'model' => $model,
-//                'addresses' => $addresses,
-//                'products' => $products,
-//            ]);
-            return $this->render('pay', [
-                'model' => $model,
-                'addresses' => $addresses,
-                'products' => $products,
-            ]);
-        } else {
-            return $this->redirect(['cart/address']);
+
+        $modelSignUp = new SignupForm();
+        if ($modelSignUp->load(Yii::$app->request->post())) {
+            $modelSignUp->password = CustomHelper::getrandomPassword();
+            if ($user = $modelSignUp->signup()) {
+                if (Yii::$app->getUser()->login($user)) {
+                    return $this->redirect('checkout');
+                }
+            }
         }
 
+
+        $modelLogin = new LoginForm();
+        if ($modelLogin->load(Yii::$app->request->post()) && $modelLogin->login()) {
+            return $this->redirect('checkout');
+        }
+
+        return $this->render('personal-data', [
+            'model' => $model,
+            'products' => $products,
+            'modelSignUp' => $modelSignUp,
+            'modelLogin' => $modelLogin,
+        ]);
     }
 
     public function actionAddress($id = null)
