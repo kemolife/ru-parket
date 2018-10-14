@@ -57,7 +57,7 @@ class BlogController extends \frontend\components\Controller
             $post = BlogPost::findOne(Yii::$app->request->get('id'));
             $post->updateCounters(['click' => 1]);
             $comments = BlogComment::find()->where(['post_id' => $post->id, 'status' => StatusBlog::STATUS_ACTIVE])->orderBy(['created_at' => SORT_ASC])->all();
-            $commenMtodel = $this->newComment($post);
+            $commentModel = $this->newComment($post);
         } else {
             $this->redirect(['/blog']);
         }
@@ -65,7 +65,7 @@ class BlogController extends \frontend\components\Controller
         return $this->render('post', [
             'post' => $post,
             'comments' => $comments,
-            'commentModel' => $commenMtodel,
+            'commentModel' => $commentModel,
             'recommendedItems' => $recommendedItems,
             'posts' => $posts,
         ]);
@@ -119,16 +119,10 @@ class BlogController extends \frontend\components\Controller
 //            Yii::$app->end();
         }
 
-        if (Yii::$app->request->post('BlogComment')) {
-            $comment->load(Yii::$app->request->post());
-            if ($post->addComment($comment)) {
-                if ($comment->status == StatusBlog::STATUS_INACTIVE)
-                    echo Yii::$app->formatter->asText('success');
-            } else {
-                echo 'failed';
-            }
-            die();
+        if ($comment->load(Yii::$app->request->post()) && $comment->validate()) {
+            $post->addComment($comment);
         }
+
         return $comment;
     }
 }

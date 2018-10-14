@@ -19,20 +19,23 @@ use yii\bootstrap\ActiveForm;
         <div class="form-group">
             <label for="checkoutClientNewName">Ваше имя *</label>
             <?= Html::activeTextInput($modelSignUp, 'username', ['class' => 'form-control', 'required' => 'required']) ?>
+            <?= Html::error($modelSignUp, 'username', ['tag' => 'small', 'class' => 'text-danger']); ?>
         </div>
         <div class="form-group">
             <label for="checkoutClientNewEmail">Электронный адрес</label>
             <?= Html::activeTextInput($modelSignUp, 'email', ['class' => 'form-control', 'required' => 'required']) ?>
+            <?= Html::error($modelSignUp, 'email', ['tag' => 'small', 'class' => 'text-danger']); ?>
         </div>
         <div class="form-group">
             <label for="checkoutClientNewTel">Телефон</label>
             <?= Html::activeTextInput($modelSignUp, 'tel', ['class' => 'form-control', 'required' => 'required']) ?>
+            <?= Html::error($modelSignUp, 'tel', ['tag' => 'small', 'class' => 'text-danger']); ?>
         </div>
         <div class="form-group">
             <label for="checkoutClientNewPass">Пароль</label>
             <?= Html::activePasswordInput($modelSignUp, 'password', ['class' => 'form-control', 'required' => 'required']) ?>
+            <?= Html::error($modelSignUp, 'password', ['tag' => 'small', 'class' => 'text-danger']); ?>
         </div>
-        <?= Html::error($modelSignUp, 'username'); ?><?= Html::error($modelSignUp, 'email'); ?><?= Html::error($modelSignUp, 'tel'); ?><?= Html::error($modelSignUp, 'password'); ?>
         <div class="d-block my-3">
             <button class="btn btn-info btn-icon" type="submit">
                 <span>Зарегистрироваться</span>

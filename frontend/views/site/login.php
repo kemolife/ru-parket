@@ -38,12 +38,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="form-group">
                                 <label for="checkoutClientOldEmail">Электронный адрес</label>
                                 <?= Html::activeTextInput($modelLogin, 'email', ['class' => 'form-control', 'required' => 'required']) ?>
+                                <?= Html::error($modelLogin, 'email', ['tag' => 'small', 'class' => 'text-danger']); ?>
                             </div>
                             <div class="form-group">
                                 <label for="checkoutClientOldPass">Пароль</label>
                                 <?= Html::activePasswordInput($modelLogin, 'password', ['class' => 'form-control', 'required' => 'required']) ?>
+                                <?= Html::error($modelLogin, 'password', ['tag' => 'small', 'class' => 'text-danger']); ?>
                             </div>
-                            <?= Html::error($modelLogin, 'email'); ?><?= Html::error($modelLogin, 'password'); ?>
                             <div class="d-block">
                                 <button type="button" class="btn btn btn-link" data-toggle="modal" data-target="#passRemindModal">
                                     <span>Забыли пароль?</span>

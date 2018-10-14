@@ -23,6 +23,7 @@ use yii\db\Expression;
  * @property string $phone
  * @property string $mobile
  * @property string $email
+ * @property string $full_name
  * @property string $remark
  * @property integer $payment_method
  * @property integer $payment_status
@@ -59,11 +60,18 @@ class Order extends \yii\db\ActiveRecord
     const PAYMENT_STATUS_UNPAID = 20;
     const PAYMENT_STATUS_PAYING = 30;
     const PAYMENT_STATUS_PAID = 40;
+    const PAYMENT_STATUS_NOT_CONFIRM = 0;
 
     const SHIPMENT_STATUS_UNSHIPPED = 60;
     const SHIPMENT_STATUS_PREPARING = 70;
     const SHIPMENT_STATUS_SHIPPED = 80;
     const SHIPMENT_STATUS_RECEIVED = 90;
+
+    public static $shipmentMethods = [
+          1 => 'Самовывоз',
+          2 => 'Курьер',
+          3 => 'Пошта',
+    ];
 
     public $address_id;
 
@@ -93,10 +101,9 @@ class Order extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'sn'], 'required'],
             [['user_id', 'country', 'province', 'city', 'district', 'payment_method', 'payment_status', 'payment_id', 'shipment_status', 'shipment_id', 'status', 'paid_at', 'shipped_at', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['payment_fee', 'shipment_fee', 'amount', 'tax'], 'number'],
-            [['sn', 'phone', 'mobile', 'email'], 'string', 'max' => 32],
+            [['sn', 'phone', 'mobile', 'email', 'full_name'], 'string', 'max' => 32],
             [['consignee'], 'string', 'max' => 64],
             [['address', 'remark', 'shipment_name', 'invoice'], 'string', 'max' => 255],
             [['zipcode'], 'string', 'max' => 16],

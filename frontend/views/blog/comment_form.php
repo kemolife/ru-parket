@@ -13,11 +13,21 @@ use yii\widgets\ActiveForm;
 
 <div class="comments__title h3">Напишите ваш отзыв</div>
 <div class="d-md-flex justify-content-md-between">
-    <?= $form->field($model, 'author')->textInput(['maxlength' => 32, 'class' => 'form-control']); ?>
-    <?= $form->field($model, 'email')->textInput(['maxlength' => 32, 'class' => 'form-control']); ?>
+    <div class="form-group">
+        <label for="checkoutDeliveryAddress">Ваше имя *</label>
+        <?= Html::activeTextInput($model, 'author', ['class' => 'form-control']) ?>
+        <?= Html::error($model, 'author', ['tag' => 'small', 'class' => 'text-danger']); ?>
+    </div>
+    <div class="form-group">
+        <label for="checkoutDeliveryAddress">Электронный адрес</label>
+        <?= Html::activeTextInput($model, 'email', ['class' => 'form-control']) ?>
+        <?= Html::error($model, 'email', ['tag' => 'small', 'class' => 'text-danger']); ?>
+    </div>
 </div>
 <div class="form-group">
-    <?= $form->field($model, 'content')->textarea(['rows' => 6, 'class' => 'form-control']) ?>
+    <label for="checkoutDeliveryAddress">Ваш отзыв...</label>
+    <?= Html::activeTextarea($model, 'content', ['rows' => 6, 'class' => 'form-control']) ?>
+    <?= Html::error($model, 'content', ['tag' => 'small', 'class' => 'text-danger']); ?>
 </div>
 
 <div class="text-center text-sm-right">

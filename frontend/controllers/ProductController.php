@@ -66,7 +66,7 @@ class ProductController extends \frontend\components\Controller
 //            ]));
 //        }
 
-        $commentModel = new Comment();
+        $commentModel = $this->addComment($model);
 
         return $this->render('view', [
             'model' => $model,
@@ -74,6 +74,26 @@ class ProductController extends \frontend\components\Controller
             'commentModel' => $commentModel,
             'allCategory' => $allCategory
         ]);
+    }
+
+    protected function addComment($model)
+    {
+        $comment = new Comment();
+        if(null !== Yii::$app->user->id){
+            $comment->user_id = Yii::$app->user->id;
+        }
+
+        if ($comment->load(Yii::$app->request->post())) {
+            if($user = Yii::$app->user->identity){
+                $comment->username = $user->username;
+                $comment->email = $user->email;
+            }
+            if($comment->validate()) {
+                $model->addComment($comment);
+            }
+        }
+
+        return $comment;
     }
 
     public function actionSearch($keyword = null, $type = self::PRODUCT_SORT_CREATED_AT)

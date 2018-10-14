@@ -14,7 +14,7 @@ use yii\web\NotFoundHttpException;
 
 class OrderController extends \frontend\components\Controller
 {
-    public $layout = 'column2';
+//    public $layout = 'column2';
 
     public function behaviors()
     {

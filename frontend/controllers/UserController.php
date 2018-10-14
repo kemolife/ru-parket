@@ -135,47 +135,48 @@ class UserController extends \frontend\components\Controller
     public function actionProfile()
     {
         $model = Profile::findOne(['user_id' => Yii::$app->user->id]);
-        $address = Address::find()->where(['user_id' => Yii::$app->user->id]);
+        $user = Yii::$app->user->identity;
+        $address = Address::findOne(['user_id' => Yii::$app->user->id]);
         $modelChangePass = new ChangePasswordForm();
-        if (!$model) {
+        if (null === $model || null === $address) {
             $model = new Profile();
             $model->user_id = Yii::$app->user->id;
+            $address = new Address();
+            $address->user_id = Yii::$app->user->id;
         }
 
-//        if ($model->birthday) {
-//            $model->year = substr($model->birthday, 0, 4);
-//            $model->month = substr($model->birthday, 5, 2);
-//            $model->day = substr($model->birthday, 8, 2);
-//        }
-//        $post = Yii::$app->request->post();
-
-//        var_dump($post); die;
-
-        if ($model->load(Yii::$app->request->post())) {
-//            $model->year = intval(Yii::$app->request->post()['Profile']['year']);
-//            $model->month = intval(Yii::$app->request->post()['Profile']['month']);
-//            $model->day = intval(Yii::$app->request->post()['Profile']['day']);
-//            if ($model->year || $model->month || $model->day) {
-//                $model->birthday = date('Y-m-d H:i:s', mktime(0, 0, 0, $model->month, $model->day, $model->year));
-//            }
-
-//            $address->address =
-
-            if ($model->save()) {
-                Yii::$app->getSession()->setFlash('success', Yii::t('app', 'profile was update.'));
-            }
-
-            if($modelChangePass->load(Yii::$app->request->post())) {
-                if($modelChangePass->validate() && $modelChangePass->changePassword()){
-                    return $this->redirect(['profile']);
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if($model->save(false)){
+                if($user->load(Yii::$app->request->post()) && $user->validate()) {
+                    $user->username = $model->name;
+                    $user->save(false);
                 }
+                if ($address->load(Yii::$app->request->post()) && $address->validate()) {
+                    $address->phone = $model->phone;
+                    $address->save(false);
+                }
+            }
+        }
+
+        if ($user->load(Yii::$app->request->post()) && $user->validate()) {
+            $user->save(false);
+        }
+
+        if ($address->load(Yii::$app->request->post()) && $address->validate()) {
+            $address->save(false);
+        }
+
+        if($modelChangePass->load(Yii::$app->request->post())) {
+            if($modelChangePass->validate() && $modelChangePass->changePassword()){
+                return $this->redirect(['profile']);
             }
         }
 
         return $this->render('profile', [
             'model' => $model,
-            'address' => $address->one(),
-            'modelChangePass' => $modelChangePass
+            'address' => $address,
+            'modelChangePass' => $modelChangePass,
+            'user' => $user,
         ]);
     }
 

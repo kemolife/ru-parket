@@ -1,5 +1,8 @@
 <?php
 /* @var $this yii\web\View */
+
+use yii\widgets\LinkPager;
+
 $this->title = 'Мои заказы';
 $this->params['breadcrumbs'][] = ['label' => 'Личный кабинет', 'url' => ['/user/profile']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -117,6 +120,22 @@ foreach ($orders as $order) {
                                         <?php } ?>
                                         </tbody>
                                     </table>
+                                    <nav aria-label="blog page navigation">
+                                        <?= LinkPager::widget([
+                                            'pagination' => $pagination,
+                                            'lastPageLabel' => '<i class="material-icons" aria-hidden>chevron_right</i>',
+                                            'firstPageLabel' => '<i class="material-icons"aria-hidden>chevron_left</i>',
+                                            'nextPageLabel' => false,
+                                            'prevPageLabel' => false,
+                                            'hideOnSinglePage' => true,
+                                            'linkOptions' => [
+                                                'class' => 'page-link',
+                                            ],
+                                            'pageCssClass' => [
+                                                'class' => 'page-item'
+                                            ]
+                                        ]) ?>
+                                    </nav>
                                 </div><!-- .account__order -->
                             </div>
                         </div><!-- .row -->

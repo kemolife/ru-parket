@@ -12,6 +12,7 @@ use yii\db\Expression;
  *
  * @property integer $id
  * @property integer $order_id
+ * @property integer $user_id
  * @property integer $product_id
  * @property string $sku
  * @property string $name
@@ -56,7 +57,7 @@ class OrderProduct extends \yii\db\ActiveRecord
     {
         return [
             [['order_id', 'product_id', 'sku', 'name'], 'required'],
-            [['order_id', 'product_id', 'number', 'type', 'created_at', 'updated_at'], 'integer'],
+            [['order_id', 'product_id', 'number', 'type', 'created_at', 'updated_at', 'user_id'], 'integer'],
             [['market_price', 'price'], 'number'],
             [['sku'], 'string', 'max' => 64],
             [['name', 'thumb'], 'string', 'max' => 255]

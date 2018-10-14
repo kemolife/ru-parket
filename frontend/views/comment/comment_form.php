@@ -6,19 +6,30 @@ use yii\widgets\ActiveForm;
 
 <?php $form = ActiveForm::begin([
     'id' => 'comment-form',
-    'action' => Yii::$app->urlManager->createUrl(['/comment/create']),
+    'action' => Yii::$app->urlManager->createUrl(['/product/view?id='.$product->id]),
     'options' => ['class' => 'product__tabs--form']
 ]); ?>
 
 <?php if (Yii::$app->user->isGuest) { ?>
     <div class="d-md-flex justify-content-md-between">
-        <?= $form->field($model, 'username')->textInput((['maxlength' => 32, 'class' => 'form-control'])); ?>
-        <?= $form->field($model, 'email')->textInput((['maxlength' => 32, 'class' => 'form-control'])); ?>
+        <div class="form-group">
+            <label for="checkoutDeliveryAddress">Ваше имя *</label>
+            <?= Html::activeTextInput($model, 'username', ['class' => 'form-control']) ?>
+            <?= Html::error($model, 'username', ['tag' => 'small', 'class' => 'text-danger']); ?>
+        </div>
+        <div class="form-group">
+            <label for="checkoutDeliveryAddress">Электронный адрес</label>
+            <?= Html::activeTextInput($model, 'email', ['class' => 'form-control']) ?>
+            <?= Html::error($model, 'email', ['tag' => 'small', 'class' => 'text-danger']); ?>
+        </div>
     </div>
 <?php } ?>
-<?= $form->field($model, 'product_id')->hiddenInput((['maxlength' => 32, 'class' => 'form-control', 'value' => $product->id])); ?>
 <div class="form-group">
-    <?= $form->field($model, 'content')->textarea(['rows' => 6, 'class' => 'form-control']) ?>
+    <div class="form-group">
+        <label for="checkoutDeliveryAddress">Ваш отзыв...</label>
+        <?= Html::activeTextarea($model, 'content', ['rows' => 6,'class' => 'form-control']) ?>
+        <?= Html::error($model, 'content', ['tag' => 'small', 'class' => 'text-danger']); ?>
+    </div>
 </div>
 
 <div class="text-center text-sm-right">

@@ -56,6 +56,7 @@ class Profile extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['name', 'phone'], 'required'],
             [['sex', 'country', 'province', 'city', 'district'], 'integer'],
             [['birthday'], 'safe'],
             [['name', 'surname', 'avatar_url', 'phone'], 'string', 'max' => 64]

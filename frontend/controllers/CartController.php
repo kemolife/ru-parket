@@ -12,6 +12,7 @@ use common\models\OrderLog;
 use common\models\OrderProduct;
 use common\models\PointLog;
 use common\models\Product;
+use common\models\Profile;
 use common\models\Settings;
 use common\models\User;
 use frontend\helpers\CustomHelper;
@@ -92,7 +93,6 @@ class CartController extends \frontend\components\Controller
         Yii::$app->session['step'] = 3;
 
         $userId = Yii::$app->user->id;
-        $addresses = Address::find()->where(['user_id' => $userId])->all();
 
         $model = new Order();
 
@@ -222,29 +222,155 @@ class CartController extends \frontend\components\Controller
         }
 
         if(Yii::$app->user->identity instanceof User){
-            return $this->redirect('personal-data-checkout');
+            return $this->redirect('pay-and-address');
         }else{
-            return $this->render('personal-data', [
-                'model' => $model,
-                'products' => $products,
-                'modelSignUp' => (new SignupForm()),
-                'modelLogin' => (new LoginForm()),
-            ]);
+            return $this->redirect('personal-data-checkout');
         }
     }
+
+    public function actionPayAndAddress()
+    {
+        $user = Yii::$app->user->identity;
+        if(false === $user instanceof User) {
+            return $this->redirect('personal-data-checkout');
+        }
+        $profile = Profile::findOne($user->getId());
+        $products = Cart::find()->where(['or', 'session_id = "' . Yii::$app->session->id . '"', 'user_id = ' . (Yii::$app->user->id ? Yii::$app->user->id : -1)])->all();
+        $model = new Order();
+
+        $address = Address::find()->where(['user_id' => $user->getId()])->one();
+        if(null === $address){
+            $address = new Address();
+        };
+
+        if($address->load(Yii::$app->request->post()) && $address->validate()){
+            try {
+                $address->consignee = 'admin';
+                $address->user_id = $user->getId();
+                $address->save(false);
+                $model->user_id = $user->id;
+                $model->full_name = $profile->name . ' ' . $profile->surname;
+                $model->sn = date('YmdHis') . rand(1000, 9999);
+                $model->consignee = $address->consignee;
+                $model->country = 1;
+                $model->province = $address->province;
+                $model->city = $address->city;
+                $model->district = $address->district;
+                $model->address = $address->address;
+                $model->zipcode = $address->zipcode;
+                $model->phone = $profile->phone;
+                $model->mobile = $profile->phone;
+                $model->email = $user->email;
+                if ($pay = Yii::$app->request->post()['Pay']) {
+                    $model->payment_method = $pay['type'];
+                    $model->payment_status = Order::PAYMENT_STATUS_UNPAID;
+                }
+                if($delivery = Yii::$app->request->post()['deliveryMethod']){
+                    $model->shipment_id = $delivery;
+                }
+                $model->status = Order::PAYMENT_STATUS_NOT_CONFIRM;
+
+                $products = Cart::find()->where(['session_id' => Yii::$app->session->id])->all();
+                if (count($products)) {
+                    foreach ($products as $product) {
+                        $model->amount += $product->number * $product->price;
+                    }
+                } else {
+                    $this->redirect('/cart');
+                }
+                $model->amount += floatval($model->shipment_fee);
+
+                if ($model->save()) {
+
+                    // insert order_product and clear cart
+                    foreach ($products as $product) {
+                        $orderProduct = new OrderProduct();
+                        $orderProduct->order_id = $model->id;
+                        $orderProduct->user_id = $user->getId();
+                        $orderProduct->product_id = $product->product_id;
+                        $orderProduct->sku = $product->sku;
+                        $orderProduct->name = $product->name;
+                        $orderProduct->number = $product->number;
+                        $orderProduct->market_price = $product->market_price;
+                        $orderProduct->price = $product->price;
+                        $orderProduct->thumb = $product->thumb;
+                        $orderProduct->type = $product->type;
+
+                        $orderProduct->save();
+
+                        Product::updateAllCounters(['stock' => -$product->number], ['id' => $product->product_id]);
+                    }
+
+                    Cart::deleteAll(['session_id' => Yii::$app->session->id]);
+
+                    $orderLog = new OrderLog([
+                        'order_id' => $model->id,
+                        'status' => $model->status,
+                    ]);
+                    $orderLog->save();
+
+                    return $this->redirect('confirmation');
+                }
+            }catch (\Exception $e){
+                var_dump($e->getMessage());
+            }
+        }
+
+        return $this->render('pay-and-address', [
+            'model' => $model,
+            'products' => $products,
+            'address' => $address
+        ]);
+    }
+
+    public function actionConfirmation()
+    {
+        $user = Yii::$app->user->identity;
+        if(false === ($user instanceof User)) {
+            return $this->redirect('personal-data-checkout');
+        }
+        $order = Order::find()->where(['user_id' => $user->getId()])->orderBy('created_at DESC')->one();
+        if(null === $order){
+            return $this->redirect('personal-data-checkout');
+        }
+        if($order->status === Order::PAYMENT_STATUS_UNPAID){
+            return $this->redirect('/order');
+        }
+
+        $orderProducts = OrderProduct::find()->where(['order_id' => $order->id])->all();
+        if($order->load(Yii::$app->request->post()) && $order->validate()){
+            $order->status = Order::PAYMENT_STATUS_UNPAID;
+            if($order->save(false)){
+
+                return $this->render('final-order', [
+                    'order' => $order
+                ]);
+            }
+        }
+
+        return $this->render('confirmation', [
+            'products' => $orderProducts,
+            'order' => $order,
+        ]);
+    }
+
     public function actionPersonalDataCheckout()
     {
         $products = Cart::find()->where(['or', 'session_id = "' . Yii::$app->session->id . '"', 'user_id = ' . (Yii::$app->user->id ? Yii::$app->user->id : -1)])->all();
         $model = new Order();
 
-        if(!Yii::$app->request->isPost){
-            return $this->redirect('/cart');
-        }
-
         $modelSignUp = new SignupForm();
         if ($modelSignUp->load(Yii::$app->request->post())) {
+            $products = Cart::find()->where(['session_id' => Yii::$app->session->id])->all();
             $modelSignUp->password = CustomHelper::getrandomPassword();
             if ($user = $modelSignUp->signup()) {
+                if (count($products)) {
+                    foreach ($products as $product){
+                        $product->user_id = $user->id;
+                        $product->session_id = Yii::$app->session->regenerateID();
+                        $product->save(false);
+                    }
+                }
                 if (Yii::$app->getUser()->login($user)) {
                     return $this->redirect('checkout');
                 }

@@ -1,4 +1,5 @@
-<?php use yii\bootstrap\ActiveForm; ?>
+<?php use yii\bootstrap\ActiveForm;
+use yii\bootstrap\Html; ?>
 <div class="modal fade" id="passRemindModal" tabindex="-1" role="dialog" aria-labelledby="passRemindModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -19,6 +20,7 @@
             ); ?>
                 <div class="modal-body">
                     <?php echo $form->field($model, 'email')->textInput(['class' => 'form-control']) ?>
+                    <?= Html::error($model, 'email', ['tag' => 'small', 'class' => 'text-danger']); ?>
                 </div>
                 <div class="modal-footer d-flex flex-column align-items-md-end">
                     <button class="btn btn-info btn-icon" type="submit">

@@ -57,9 +57,10 @@ class Comment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['product_id','content'], 'required'],
+            [['content', 'username', 'email'], 'required'],
             [['user_id', 'product_id', 'order_id', 'star', 'point', 'up', 'status', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
             [['content'], 'string'],
+            [['email'], 'email'],
             [['username','email'], 'string', 'max' => 255]
         ];
     }

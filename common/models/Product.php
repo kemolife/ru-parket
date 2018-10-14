@@ -282,4 +282,12 @@ class Product extends \yii\db\ActiveRecord
         return ['id', 'category_id', 'name', 'sku', 'stock', 'weight', 'market_price', 'price', 'brief', 'content', 'thumb', 'image', 'keywords', 'description', 'type', 'brand_id'];
     }
 
+
+    public function addComment($comment)
+    {
+        $comment->status = Status::STATUS_INACTIVE;
+        $comment->product_id = $this->id;
+        return $comment->save();
+    }
+
 }

@@ -60,7 +60,7 @@ class Address extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'country', 'province', 'city', 'district', 'default', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['consignee'], 'required'],
+            [['address', 'province', 'city'], 'required'],
             [['name', 'consignee'], 'string', 'max' => 64],
             [['address'], 'string', 'max' => 255],
             [['zipcode'], 'string', 'max' => 16],

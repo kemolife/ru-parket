@@ -117,11 +117,11 @@ class CommentController extends Controller
         }
 
         $posts = Yii::$app->request->post();
-        if ($model->load($posts) && $model->save(false, ['user_id', 'product_id', 'order_id', 'star', 'point', 'up', 'status', 'created_at', 'updated_at', 'username','email', 'content'])) {
-            return $this->redirect(['/product/view', 'id' => $posts['Comment']['product_id']]);
-        } else {
-            return $this->redirect(['/product/view', 'id' => $posts['Comment']['product_id']]);
+        if ($model->load($posts) && $model->validate()) {
+           $model->save();
         }
+
+        return $this->redirect(['/product/view', 'id' => $posts['Comment']['product_id']]);
     }
 
     /**
