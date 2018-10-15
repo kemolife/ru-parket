@@ -22,7 +22,7 @@ class ChangePasswordForm extends Model
     public function rules()
     {
         return [
-            ['password', 'required'],
+            [['password', 'oldpassword'], 'required'],
             ['password', 'string', 'min' => 6],
             ['repassword', 'compare', 'compareAttribute' => 'password'],
             ['oldpassword', 'validatePassword'],
@@ -33,8 +33,8 @@ class ChangePasswordForm extends Model
     {
         return [
             'oldpassword' => 'Cтарый пароль',
-            'password' => 'Новий пароль',
-            'repassword' => 'Повторний пароль',
+            'password' => 'Новый пароль',
+            'repassword' => 'Повторный пароль',
         ];
     }
     /**

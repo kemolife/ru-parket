@@ -1,6 +1,6 @@
 <?php
 /* @var $this yii\web\View */
-$this->registerCssFile('@web/css/product.css', ['depends' => \frontend\assets\AppAsset::className()]);
+$this->registerCssFile('', ['depends' => \frontend\assets\AppAsset::className()]);
 
 $arrayPath = \common\models\Category::getCatalogPath($model->category_id, $allCategory);
 foreach ($arrayPath as $path) {

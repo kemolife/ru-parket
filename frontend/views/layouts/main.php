@@ -133,6 +133,14 @@ AppAsset::register($this);
 
     <?= \common\widgets\ConsultantModal::widget() ?>
 
+    <div class="alert alert-info alert-dismissible fade" role="alert">
+        <div class="text-alert">
+            Спасибо, ваша заявка принята! Мы свяжемся с вами в ближайшее время.
+        </div>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
 
     <?php $this->endBody() ?>
     <script>

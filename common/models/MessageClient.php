@@ -18,6 +18,9 @@ use Yii;
  */
 class MessageClient extends \yii\db\ActiveRecord
 {
+    const STATUS_NOT_DRIVE = 2;
+    const STATUS_DRIVE = 3;
+
     /**
      * {@inheritdoc}
      */
@@ -26,15 +29,33 @@ class MessageClient extends \yii\db\ActiveRecord
         return 'client_messages';
     }
 
-    /**
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios['callback'] = ['name','tel'];//Scenario Values Only Accepted
+        $scenarios['pass'] = ['email'];//Scenario Values Only Accepted
+        return $scenarios;
+    }
+
+    /**c
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
+            [['name', 'tel', 'address'], 'required'],
+            [['name', 'tel', 'address'], 'required', 'on' => 'consultant'],
             [['type', 'status', 'create_date'], 'integer'],
             [['tel', 'area'], 'string', 'max' => 100],
             [['address','name'], 'string', 'max' => 255],
+        ];
+    }
+
+    public static function getDiveLabel()
+    {
+        return [
+            self::STATUS_NOT_DRIVE => 'Консультация без выезда на объект',
+            self::STATUS_DRIVE => 'Консультация з выездом на объект'
         ];
     }
 
@@ -59,7 +80,9 @@ class MessageClient extends \yii\db\ActiveRecord
     {
         if(parent::beforeSave($insert))
         {
-            $this->status = 1;
+            if(!$this->status) {
+                $this->status = 1;
+            }
             $this->create_date = time();
 
             return true;

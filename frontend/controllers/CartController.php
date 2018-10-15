@@ -268,7 +268,7 @@ class CartController extends \frontend\components\Controller
                 if($delivery = Yii::$app->request->post()['deliveryMethod']){
                     $model->shipment_id = $delivery;
                 }
-                $model->status = Order::PAYMENT_STATUS_NOT_CONFIRM;
+                $model->status = Order::STATUS_NOT_CONFIRM;
 
                 $products = Cart::find()->where(['session_id' => Yii::$app->session->id])->all();
                 if (count($products)) {
@@ -333,13 +333,13 @@ class CartController extends \frontend\components\Controller
         if(null === $order){
             return $this->redirect('personal-data-checkout');
         }
-        if($order->status === Order::PAYMENT_STATUS_UNPAID){
+        if($order->status === Order::STATUS_CONFIRM){
             return $this->redirect('/order');
         }
 
         $orderProducts = OrderProduct::find()->where(['order_id' => $order->id])->all();
         if($order->load(Yii::$app->request->post()) && $order->validate()){
-            $order->status = Order::PAYMENT_STATUS_UNPAID;
+            $order->status = Order::STATUS_CONFIRM;
             if($order->save(false)){
 
                 return $this->render('final-order', [

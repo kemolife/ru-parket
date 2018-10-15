@@ -66,7 +66,7 @@ class SiteController extends \frontend\components\Controller
     {
         return [
             'error' => [
-                'class' => 'yii\web\ErrorAction',
+                'class' => 'yii\web\ErrorAction'
             ],
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
@@ -211,13 +211,19 @@ class SiteController extends \frontend\components\Controller
     public function actionMenuMobile()
     {
         $this->layout = 'clear';
-        return $this->render('block/menu_mobile');
+        $mainCategories = Category::find()->where(['parent_id' => 0])->all();
+        return $this->render('block/menu_mobile', [
+            'mainCategories' => $mainCategories
+        ]);
     }
 
     public function actionMenuDesktop()
     {
         $this->layout = 'clear';
-        return $this->render('block/menu_desktop');
+        $mainCategories = Category::find()->where(['parent_id' => 0])->all();
+        return $this->render('block/menu_desktop',[
+            'mainCategories' => $mainCategories
+        ]);
     }
 
     public function actionSignup()

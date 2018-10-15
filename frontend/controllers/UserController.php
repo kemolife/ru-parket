@@ -144,8 +144,9 @@ class UserController extends \frontend\components\Controller
             $address = new Address();
             $address->user_id = Yii::$app->user->id;
         }
+        $post = Yii::$app->request->post();
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        if ($model->load($post) && $model->validate()) {
             if($model->save(false)){
                 if($user->load(Yii::$app->request->post()) && $user->validate()) {
                     $user->username = $model->name;
@@ -158,15 +159,7 @@ class UserController extends \frontend\components\Controller
             }
         }
 
-        if ($user->load(Yii::$app->request->post()) && $user->validate()) {
-            $user->save(false);
-        }
-
-        if ($address->load(Yii::$app->request->post()) && $address->validate()) {
-            $address->save(false);
-        }
-
-        if($modelChangePass->load(Yii::$app->request->post())) {
+        if($post['ChangePasswordForm']['password'] && $modelChangePass->load(Yii::$app->request->post())) {
             if($modelChangePass->validate() && $modelChangePass->changePassword()){
                 return $this->redirect(['profile']);
             }

@@ -52,6 +52,8 @@ class Order extends \yii\db\ActiveRecord
 {
     const STATUS_CANCEL = -1;
     const STATUS_DELETED = -2;
+    const STATUS_NOT_CONFIRM = 0;
+    const STATUS_CONFIRM = 1;
 
     const PAYMENT_METHOD_PAY = 1;
     const PAYMENT_METHOD_COD = 2;
@@ -60,7 +62,6 @@ class Order extends \yii\db\ActiveRecord
     const PAYMENT_STATUS_UNPAID = 20;
     const PAYMENT_STATUS_PAYING = 30;
     const PAYMENT_STATUS_PAID = 40;
-    const PAYMENT_STATUS_NOT_CONFIRM = 0;
 
     const SHIPMENT_STATUS_UNSHIPPED = 60;
     const SHIPMENT_STATUS_PREPARING = 70;
@@ -220,8 +221,8 @@ class Order extends \yii\db\ActiveRecord
     public static function getPaymentMethodLabels($id = null)
     {
         $data = [
-            self::PAYMENT_METHOD_PAY => Yii::t('app', 'PAYMENT_METHOD_PAY'),
-            self::PAYMENT_METHOD_COD => Yii::t('app', 'PAYMENT_METHOD_COD'),
+            self::PAYMENT_METHOD_PAY => 'Оплачено',
+            self::PAYMENT_METHOD_COD => 'Оплачено',
         ];
 
         if ($id !== null && isset($data[$id])) {
@@ -234,16 +235,16 @@ class Order extends \yii\db\ActiveRecord
     public static function getStatusLabels($id = null)
     {
         $data = [
-            self::STATUS_CANCEL => Yii::t('app', 'STATUS_CANCEL'),
-            self::STATUS_DELETED => Yii::t('app', 'STATUS_DELETED'),
-            self::PAYMENT_STATUS_COD => Yii::t('app', 'PAYMENT_STATUS_COD'),
-            self::PAYMENT_STATUS_UNPAID => Yii::t('app', 'PAYMENT_STATUS_UNPAID'),
-            self::PAYMENT_STATUS_PAYING => Yii::t('app', 'PAYMENT_STATUS_PAYING'),
-            self::PAYMENT_STATUS_PAID => Yii::t('app', 'PAYMENT_STATUS_PAID'),
-            self::SHIPMENT_STATUS_UNSHIPPED => Yii::t('app', 'SHIPMENT_STATUS_UNSHIPPED'),
-            self::SHIPMENT_STATUS_PREPARING => Yii::t('app', 'SHIPMENT_STATUS_PREPARING'),
-            self::SHIPMENT_STATUS_SHIPPED => Yii::t('app', 'SHIPMENT_STATUS_SHIPPED'),
-            self::SHIPMENT_STATUS_RECEIVED => Yii::t('app', 'SHIPMENT_STATUS_RECEIVED'),
+            self::STATUS_CANCEL => 'Отменен',
+            self::STATUS_DELETED => 'Удален',
+            self::STATUS_NOT_CONFIRM => 'Не подтверждён',
+            self::STATUS_CONFIRM => 'Подтверждён',
+            self::PAYMENT_STATUS_UNPAID => 'Неоплачено',
+            self::PAYMENT_STATUS_PAID => 'Оплачено',
+            self::SHIPMENT_STATUS_UNSHIPPED => 'Не доставлено',
+            self::SHIPMENT_STATUS_PREPARING => 'Подготовлено',
+            self::SHIPMENT_STATUS_SHIPPED => 'Доставлено',
+            self::SHIPMENT_STATUS_RECEIVED => 'Получено',
         ];
 
         if ($id !== null && isset($data[$id])) {
@@ -256,10 +257,8 @@ class Order extends \yii\db\ActiveRecord
     public static function getPaymentStatusLabels($id = null)
     {
         $data = [
-            self::PAYMENT_STATUS_COD => Yii::t('app', 'PAYMENT_STATUS_COD'),
-            self::PAYMENT_STATUS_UNPAID => Yii::t('app', 'PAYMENT_STATUS_UNPAID'),
-            self::PAYMENT_STATUS_PAYING => Yii::t('app', 'PAYMENT_STATUS_PAYING'),
-            self::PAYMENT_STATUS_PAID => Yii::t('app', 'PAYMENT_STATUS_PAID'),
+            self::PAYMENT_STATUS_UNPAID => 'Неоплачено',
+            self::PAYMENT_STATUS_PAID => 'Оплачено'
         ];
 
         if ($id !== null && isset($data[$id])) {
@@ -272,10 +271,10 @@ class Order extends \yii\db\ActiveRecord
     public static function getShipmentStatusLabels($id = null)
     {
         $data = [
-            self::SHIPMENT_STATUS_UNSHIPPED => Yii::t('app', 'SHIPMENT_STATUS_UNSHIPPED'),
-            self::SHIPMENT_STATUS_PREPARING => Yii::t('app', 'SHIPMENT_STATUS_PREPARING'),
-            self::SHIPMENT_STATUS_SHIPPED => Yii::t('app', 'SHIPMENT_STATUS_SHIPPED'),
-            self::SHIPMENT_STATUS_RECEIVED => Yii::t('app', 'SHIPMENT_STATUS_RECEIVED'),
+            self::SHIPMENT_STATUS_UNSHIPPED => 'Не доставлено',
+            self::SHIPMENT_STATUS_PREPARING => 'Подготовлено',
+            self::SHIPMENT_STATUS_SHIPPED => 'Доставлено',
+            self::SHIPMENT_STATUS_RECEIVED => 'Получено',
         ];
 
         if ($id !== null && isset($data[$id])) {

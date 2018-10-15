@@ -33,5 +33,5 @@ $this->title = $name;
 
 </main>
 <!-- Backend - this will replaced with backend function to add class -->
-<script>
-    document.querySelector('.page').classList.add('page-404');
+<script>document.querySelector('.page').classList.add('page-404');</script>
+

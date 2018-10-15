@@ -12,6 +12,9 @@ namespace frontend\controllers;
 use common\models\MessageClient;
 use frontend\components\Controller;
 use Yii;
+use yii\helpers\Html;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 
 class MessageClientController extends Controller
 {
@@ -22,8 +25,21 @@ class MessageClientController extends Controller
         $model = new MessageClient();
         $model->loadDefaultValues();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
-            return $this->goHome();
+        $model->scenario = 'callback';
+
+        if (Yii::$app->request->isAjax) {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->asJson(['success' => true]);
+            }
+
+            $result = [];
+            // The code below comes from ActiveForm::validate(). We do not need to validate the model
+            // again, as it was already validated by save(). Just collect the messages.
+            foreach ($model->getErrors() as $attribute => $errors) {
+                $result[Html::getInputId($model, $attribute)] = $errors;
+            }
+
+            return $this->asJson(['validation' => $result]);
         }
     }
 
@@ -34,8 +50,21 @@ class MessageClientController extends Controller
         $model = new MessageClient();
         $model->loadDefaultValues();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
-            return $this->goHome();
+        $model->scenario = 'callback';
+
+        if (Yii::$app->request->isAjax) {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->asJson(['success' => true]);
+            }
+
+            $result = [];
+            // The code below comes from ActiveForm::validate(). We do not need to validate the model
+            // again, as it was already validated by save(). Just collect the messages.
+            foreach ($model->getErrors() as $attribute => $errors) {
+                $result[Html::getInputId($model, $attribute)] = $errors;
+            }
+
+            return $this->asJson(['validation' => $result]);
         }
     }
 
@@ -45,9 +74,21 @@ class MessageClientController extends Controller
 
         $model = new MessageClient();
         $model->loadDefaultValues();
+        $model->setScenario('consultant');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
-            return $this->goHome();
+        if (Yii::$app->request->isAjax) {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->asJson(['success' => true]);
+            }
+
+            $result = [];
+            // The code below comes from ActiveForm::validate(). We do not need to validate the model
+            // again, as it was already validated by save(). Just collect the messages.
+            foreach ($model->getErrors() as $attribute => $errors) {
+                $result[Html::getInputId($model, $attribute)] = $errors;
+            }
+
+            return $this->asJson(['validation' => $result]);
         }
     }
 }

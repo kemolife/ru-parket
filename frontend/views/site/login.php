@@ -6,6 +6,8 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $modelLogin \common\models\LoginForm */
 
+$this->registerCssFile('', ['depends' => \frontend\assets\AppAsset::className()]);
+
 $this->title = 'Личный кабинет';
 $this->params['breadcrumbs'][] = $this->title;
 ?>

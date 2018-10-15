@@ -1,6 +1,7 @@
 <?php
 /* @var $this yii\web\View */
 
+use common\models\Order;
 use yii\widgets\LinkPager;
 
 $this->title = 'Мои заказы';
@@ -14,6 +15,8 @@ foreach ($orders as $order) {
     }
     break;
 }
+
+$statusClass = ($unpaidOrder->payment_status === Order::PAYMENT_STATUS_UNPAID || $unpaidOrder->shipment_status === Order::SHIPMENT_STATUS_UNSHIPPED)?'text-danger':'text-info'
 
 ?>
 
@@ -53,18 +56,18 @@ foreach ($orders as $order) {
                                     </tr>
                                     <tr>
                                         <th scope="row">Тип доставки:</th>
-                                        <td><?= \common\models\Order::getPaymentMethodLabels($unpaidOrder->payment_method) ?></td>
+                                        <td><?= \common\models\Order::$shipmentMethods[$unpaidOrder->shipment_id] ?></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Статус оплаты:</th>
                                         <td>
-                                            <strong class="text-info"><?= \common\models\Order::getPaymentStatusLabels($unpaidOrder->payment_status) ?></strong>
+                                            <strong class="<?= $statusClass ?>"><?= \common\models\Order::getPaymentStatusLabels($unpaidOrder->payment_status) ?></strong>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Статус отгрузки:</th>
                                         <td>
-                                            <strong class="text-danger"><?= \common\models\Order::getShipmentStatusLabels($unpaidOrder->shipment_status) ?></strong>
+                                            <strong class="<?= $statusClass ?>"><?= \common\models\Order::getShipmentStatusLabels($unpaidOrder->shipment_status) ?></strong>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -114,7 +117,7 @@ foreach ($orders as $order) {
                                                 <td><?= $item->id ?></td>
                                                 <td><?= date('d.m.Y', $item->created_at) ?></td>
                                                 <td>
-                                                    <strong class="text-info"><?= \common\models\Order::getStatusLabels($item->status) ?></strong>
+                                                    <strong class="<?= $statusClass ?>"><?= \common\models\Order::getStatusLabels($item->status) ?></strong>
                                                 </td>
                                             </tr>
                                         <?php } ?>
@@ -124,7 +127,7 @@ foreach ($orders as $order) {
                                         <?= LinkPager::widget([
                                             'pagination' => $pagination,
                                             'lastPageLabel' => '<i class="material-icons" aria-hidden>chevron_right</i>',
-                                            'firstPageLabel' => '<i class="material-icons"aria-hidden>chevron_left</i>',
+                                            'firstPageLabel' => '<i class="material-icons" aria-hidden>chevron_left</i>',
                                             'nextPageLabel' => false,
                                             'prevPageLabel' => false,
                                             'hideOnSinglePage' => true,
